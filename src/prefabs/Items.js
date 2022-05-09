@@ -3,6 +3,8 @@ class Item extends Phaser.GameObjects.Sprite {
       super(scene, x, y, texture, frame);
       //scene.physics.add.existing(this);
       scene.add.existing(this);
+
+      this.mass;
     }
 
     update() {
