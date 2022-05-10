@@ -5,5 +5,7 @@ class Cereal extends Items{
         this.mass;
     }
 
-    
+    update(){
+        //super.update();
+    }
 }
