@@ -9,9 +9,10 @@ class Store extends Phaser.Scene {
 
     create() {
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
+        //this.bg = this.add.image(0,0,"store_bg");
     }
 
     update() {
-        
+
     }
 }

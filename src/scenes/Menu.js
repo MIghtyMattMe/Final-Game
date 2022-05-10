@@ -20,7 +20,7 @@ class Menu extends Phaser.Scene {
 
     update() {
         if(pointer.isDown){
-            this.scene.start('storescene');
+            this.scene.start('storeScene');
         }
     }
 }
