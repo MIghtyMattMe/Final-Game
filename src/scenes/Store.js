@@ -13,6 +13,8 @@ class Store extends Phaser.Scene {
     }
 
     update() {
-
+        if(pointer.isDown){
+            this.scene.start('cartScene');
+        }
     }
 }
