@@ -3,6 +3,8 @@
 class Store extends Phaser.Scene {
     constructor() {
         super("storeScene");
+
+        this.i = 0;
     }
 
     preload() {
@@ -15,6 +17,12 @@ class Store extends Phaser.Scene {
     }
 
     create() {
+        //NOTES:
+        /*  set colliders to local
+            substitute this.box with items group declaration
+        */
+
+
         //test assets
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
         //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
@@ -29,16 +37,41 @@ class Store extends Phaser.Scene {
 
         //player
         player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
-        player.setGravityY(2000);
-        this.physics.add.collider(player, ground);
+       // player.setGravityY(2000);
 
         //item
-        this.box = new Item();
+        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox").setDepth(1);
+        
+        //add colliders and overlap
+        this.physics.add.collider(player, ground);
+        this.physics.add.collider(this.box, ground);
+        this.physics.add.collider(this.box, collider);
+        this.physics.add.overlap(this.box, player, this.incrementI, null, this);
+
+
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+
     }   
 
     update() {
-        if(pointer.isDown){
-            //this.scene.start('cartScene');
+
+        player.update();
+        this.box.update();
+
+        //if held over cart - enter cart scene
+        //this.physics.arcade.overlap(this.box, player, incrementI, null, this);
+        
+        if(this.i >= 15){
+            this.i=0;
+            this.scene.start('cartScene');
         }
+        
+    }
+
+    incrementI(){
+        this.i++;
     }
 }

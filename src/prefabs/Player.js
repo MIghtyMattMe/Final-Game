@@ -5,11 +5,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
       scene.physics.add.existing(this);
       scene.add.existing(this);
 
+      this.setGravityY(2000);
     }
 
 
     update() {
-
         
+
+    }
+
+    walk(){
+
     }
 }  
