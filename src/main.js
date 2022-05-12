@@ -16,7 +16,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {y: 400},
             fps: 60
         }
@@ -33,4 +33,6 @@ let borderPadding = borderUISize / 3;
 let keyLEFT, keyRIGHT, keySPACE;
 //mouse
 let pointer;
+//shoping cart
+let cart = [];
 

@@ -7,7 +7,7 @@ class Store extends Phaser.Scene {
         this.load.image("store_bg", "./assets/shop/shop_bg.png");
         this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("shelf", "./assets/shop/test_shelf.png");
-        this.load.image("cerealBox", "./assets/shop/text_box.png");
+        //this.load.image("cerealBox", "./assets/shop/text_box.png");
     }
 
     create() {
