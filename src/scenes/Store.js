@@ -19,6 +19,7 @@ class Store extends Phaser.Scene {
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
         //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
 
+        //hidden colliders
         let collider = this.physics.add.sprite(0, 150, "collider").setOrigin(0,0);
         collider.body.allowGravity = false;
         collider.setImmovable();
@@ -26,8 +27,14 @@ class Store extends Phaser.Scene {
         ground.body.allowGravity = false;
         ground.setImmovable();
 
-        player = new Player(this.physics.add.sprite(0, 0, "cart").setOrigin(0,0));
-    }
+        //player
+        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
+        player.setGravityY(2000);
+        this.physics.add.collider(player, ground);
+
+        //item
+        this.box = new Item();
+    }   
 
     update() {
         if(pointer.isDown){
