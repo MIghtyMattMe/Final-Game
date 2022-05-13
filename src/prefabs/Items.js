@@ -38,5 +38,11 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.setGravityY(2000);
     }
 
+    //call when adding things to cart inorder to give a new reference to item
+    remake(scene) {
+      let remade = new Item(scene, 400, 100, "cerealBox").setDepth(1);
+      return remade;
+    }
+
 
 }

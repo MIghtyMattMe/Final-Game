@@ -14,6 +14,8 @@ class Store extends Phaser.Scene {
         this.load.image("cerealBox", "./assets/shop/test_box.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
+
+        this.load.audio('bgm', './assets/Music/Shopping_Music.wav');
     }
 
     create() {
@@ -26,6 +28,11 @@ class Store extends Phaser.Scene {
         //test assets
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
         //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
+
+        //load music
+        let menu_music = this.sound.add('bgm', {volume: 0.5});
+        menu_music.setLoop(true);
+        menu_music.play();
 
         //hidden colliders
         let collider = this.physics.add.sprite(0, 150, "collider").setOrigin(0,0);
@@ -66,6 +73,7 @@ class Store extends Phaser.Scene {
         
         if(this.i >= 15){
             this.i=0;
+            new_cart_item = this.box;
             this.scene.start('cartScene');
         }
         
