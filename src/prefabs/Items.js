@@ -8,7 +8,7 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.scene = scene;
 
       this.setGravityY(2000);
-      this.setInteractive();
+      this.setInteractive({ draggable: true });
       scene.input.setDraggable(this);
 
       //scene.input.on("dragstart", function(pointer){ this.disableG(); });
@@ -39,8 +39,8 @@ class Item extends Phaser.Physics.Arcade.Sprite {
     }
 
     //call when adding things to cart inorder to give a new reference to item
-    remake(scene) {
-      let remade = new Item(scene, 400, 100, "cerealBox").setDepth(1);
+    remake(scene, x, y) {
+      let remade = new Item(scene, x, y, "cerealBox").setDepth(1);
       return remade;
     }
 

@@ -13,10 +13,11 @@ class Store extends Phaser.Scene {
         this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("shelf", "./assets/shop/test_shelf.png");
         this.load.image("cerealBox", "./assets/shop/test_box.png");
+        this.load.image("cart_button", "./assets/shop/cart_button.png");
+        this.load.image("list_button", "./assets/shop/list_button.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
 
-        this.load.audio('bgm', './assets/Music/Shopping_Music.wav');
     }
 
     create() {
@@ -29,11 +30,9 @@ class Store extends Phaser.Scene {
         //test assets
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
         this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
-
-        //load music
-        let menu_music = this.sound.add('bgm', {volume: 0.5});
-        menu_music.setLoop(true);
-        menu_music.play();
+        let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+            this.scene.start('cartScene');
+        });
 
         //hidden colliders
         let collider = this.physics.add.sprite(0, 150, "collider").setOrigin(0,0);
@@ -45,7 +44,7 @@ class Store extends Phaser.Scene {
 
         //player
         player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
-       // player.setGravityY(2000);
+        //player.setGravityY(2000);
 
         //item
         this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox").setDepth(1);

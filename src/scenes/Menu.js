@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image("menu_bg", "./assets/menu/menu_bg.png");
+        this.load.audio('bgm', './assets/Music/Shopping_Music.wav');
     }
 
     create() {
@@ -14,6 +15,11 @@ class Menu extends Phaser.Scene {
         //mouse controls
         pointer = this.input.activePointer;
         this.input.mouse.disableContextMenu();
+
+        //load music
+        let menu_music = this.sound.add('bgm', {volume: 0.5});
+        menu_music.setLoop(true);
+        menu_music.play();
         
 
     }

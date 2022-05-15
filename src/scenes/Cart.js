@@ -4,11 +4,16 @@ class Cart extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("side", "./assets/sides.png");
-        this.load.image("test_obj", "./assets/test_obj.png");
+        this.load.image("side", "./assets/cart/sides.png");
+        this.load.image("back_button", "./assets/cart/back_button.png");
     }
 
     create() {
+        //create the back button
+        let back_butt = this.add.sprite(500, 30, "back_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+            this.scene.start('storeScene');
+        });
+
         //create cart 'box'/outline
         let ground = this.physics.add.group({immovable: true, allowGravity: false});
         let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 10, "side").setScale(0.9, 1);
@@ -20,10 +25,15 @@ class Cart extends Phaser.Scene {
 
         //making one test item to mess with physics (will need to follow these steps for whatever item we add)
         this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityY: 400});
-        let why = new_cart_item.remake(this);
-        new_cart_item = null;
-        cart.push(why);
+        if (new_cart_item != null) {
+            let why = new_cart_item.remake(this, 400, 100);
+            why.setAlpha(0);
+            new_cart_item = null;
+            cart.push(why);
+            //this.input.setDraggable(why);
+        }
         for (let i = 0; i < cart.length; i++) {
+            cart[i] = cart[i].remake(this, cart[i].x, cart[i].y)
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);
@@ -35,6 +45,7 @@ class Cart extends Phaser.Scene {
 
         //setting up collisions
         this.physics.add.collider(this.groceries, ground);
+        this.physics.add.collider(this.groceries, this.groceries);
 
         //drag items
         this.input.on('dragstart', function (pointer, gameObject) {
