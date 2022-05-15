@@ -5,6 +5,7 @@ class Store extends Phaser.Scene {
         super("storeScene");
 
         this.i = 0;
+        this.shopDrag = false;
     }
 
     preload() {
@@ -25,7 +26,7 @@ class Store extends Phaser.Scene {
 
         //test assets
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
-        //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
+        this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
 
         //hidden colliders
         let collider = this.physics.add.sprite(0, 150, "collider").setOrigin(0,0);
@@ -52,6 +53,7 @@ class Store extends Phaser.Scene {
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
             gameObject.y = dragY;
+            //this.shopDrag = true;
         });
 
     }   
