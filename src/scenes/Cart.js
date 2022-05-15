@@ -19,10 +19,14 @@ class Cart extends Phaser.Scene {
         ground.add(grd3);
 
         //making one test item to mess with physics (will need to follow these steps for whatever item we add)
-        let test_item = this.physics.add.sprite(game.config.width/2, 50, "test_obj").setInteractive();
-        test_item.body.bounce.set(0.5);
-        cart.push(test_item);
-        this.input.setDraggable(test_item);
+        this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityY: 400});
+        let why = new_cart_item.remake(this);
+        new_cart_item = null;
+        cart.push(why);
+        for (let i = 0; i < cart.length; i++) {
+            this.groceries.add(cart[i]);
+        }
+        this.input.setDraggable(cart);
 
         //setting up dragging envitronment
         this.input.dragDistanceThreshold = 0;
@@ -30,7 +34,7 @@ class Cart extends Phaser.Scene {
         globalThis.dragging = false;
 
         //setting up collisions
-        this.physics.add.collider(test_item, ground);
+        this.physics.add.collider(this.groceries, ground);
 
         //drag items
         this.input.on('dragstart', function (pointer, gameObject) {

@@ -37,4 +37,5 @@ let pointer;
 let player;
 //shoping cart
 let cart = [];
+let new_cart_item;
 
