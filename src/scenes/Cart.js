@@ -70,6 +70,14 @@ class Cart extends Phaser.Scene {
             globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
         }
         for (let i = 0; i < cart.length; i++) {
+            if (cart[i].x > (game.config.width + cart[i].width) || cart[i].x < -cart[i].width) {
+                cart[i].x = 400;
+                cart[i].y = -cart[i].height-100;
+                cart[i].setVelocity(0, 0);
+            }
+            if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
+                cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
+            }
             if (cart[i].body.velocity.x > 1){
                 cart[i].setVelocityX(cart[i].body.velocity.x - 1);
             } else if (cart[i].body.velocity.x < -1){

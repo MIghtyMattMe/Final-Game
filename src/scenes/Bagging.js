@@ -57,13 +57,24 @@ class Bagging extends Phaser.Scene {
             globalThis.gameObject.setVelocityX((pointer.x - globalThis.gameObject.x) * 8);
             globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
         }
+        let gameOver = true;
         for (let i = 0; i < cart.length; i++) {
             cart[i].update();
-            //check if off conveyor belt
+            //check if off conveyor belt or off screen
             if (cart[i].x > 300){
                 cart[i].setGravityX(0);
             } else {
                 cart[i].setGravityX(250);
+            }
+            if (cart[i].x > (game.config.width + cart[i].width)) {
+                cart[i].x = 400;
+                cart[i].y = -cart[i].height-100;
+                cart[i].setVelocity(0, 0);
+            }
+            
+            //keeps from falling through ground
+            if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
+                cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
             }
 
             //resets X velocity
@@ -95,6 +106,20 @@ class Bagging extends Phaser.Scene {
                     }
                 }
             }
+
+            //check if everything was bagged
+            //(if something is outside bagging area or if we are dragging no game over)
+            if ((cart[i].x > game.config.width/2 + borderPadding * 24) || 
+                (cart[i].x < game.config.width/2 + borderPadding * 10) || 
+                globalThis.dragging) {
+                gameOver = false;
+            }
+        }
+
+        //if everything was bagged go back to menu and clear cart
+        if (gameOver) {
+            cart = [];
+            this.scene.start('menuScene');
         }
     }
 }

@@ -54,7 +54,7 @@ class Store extends Phaser.Scene {
         //player.setGravityY(2000);
 
         //item
-        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox").setDepth(1).setGravityY(400);
+        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox", "Cereal", 1.0, 4.50).setDepth(1).setGravityY(400);
         this.input.setDraggable(this.box);
         this.input.dragDistanceThreshold = 0;
         globalThis.gameObject = null;
