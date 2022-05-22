@@ -6,10 +6,12 @@ class Item extends Phaser.Physics.Arcade.Sprite {
 
       //references
       this.scene = scene;
+      this.dropped = false;
 
       this.setGravityY(2000);
       this.setInteractive({ draggable: true });
       scene.input.setDraggable(this);
+      this.texture = texture;
 
       //scene.input.on("dragstart", function(pointer){ this.disableG(); });
       //scene.input.on("dragend", this.enableG(pointer));
@@ -17,32 +19,19 @@ class Item extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-      if(pointer.isDown ){
-        this.disableG();
-      }
-      else{
-        this.enableG();
+      if (this.dropped) {
+        this.scene.clock = this.scene.time.delayedCall(500, () => {
+          this.dropped = false;
+      }, null, this);
       }
 
       //anim and physics maybe
 
     }
 
-
-
-    //if picked up fcn
-    disableG(){
-      this.setGravityY(0);
-    }
-    enableG(){
-      this.setGravityY(2000);
-    }
-
     //call when adding things to cart inorder to give a new reference to item
     remake(scene, x, y) {
-      let remade = new Item(scene, x, y, "cerealBox").setDepth(1);
+      let remade = new Item(scene, x, y, this.texture).setDepth(1);
       return remade;
     }
-
-
 }

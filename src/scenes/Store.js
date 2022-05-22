@@ -18,6 +18,9 @@ class Store extends Phaser.Scene {
 
         this.load.image("collider", "./assets/shop/collider.png");
 
+        //temp to get to cart
+        this.load.image("back_button", "./assets/cart/back_button.png");
+
     }
 
     create() {
@@ -25,6 +28,10 @@ class Store extends Phaser.Scene {
         /*  set colliders to local
             substitute this.box with items group declaration
         */
+        //create way to bagging sceen (temp)
+        let bag_butt = this.add.sprite(700, 30, "back_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+            this.scene.start('baggingScene');
+        });
 
 
         //test assets
@@ -47,24 +54,43 @@ class Store extends Phaser.Scene {
         //player.setGravityY(2000);
 
         //item
-        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox").setDepth(1);
+        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox").setDepth(1).setGravityY(400);
+        this.input.setDraggable(this.box);
+        this.input.dragDistanceThreshold = 0;
+        globalThis.gameObject = null;
+        globalThis.dragging = false;
         
         //add colliders and overlap
         this.physics.add.collider(player, ground);
         this.physics.add.collider(this.box, ground);
-        this.physics.add.collider(this.box, collider);
+        let shelf_colis = this.physics.add.collider(this.box, collider);
         this.physics.add.overlap(this.box, player, this.incrementI, null, this);
 
 
-        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-            gameObject.x = dragX;
-            gameObject.y = dragY;
-            //this.shopDrag = true;
+        this.input.on('dragstart', function (pointer, gameObject) {
+            shelf_colis.active = false;
+            gameObject.body.allowGravity = false;
+            globalThis.gameObject = gameObject;
+            globalThis.dragging = true;
+            gameObject.body.bounce.set(0);
+        });
+        this.input.on('dragend', function (pointer, gameObject) {
+            shelf_colis.active = true;
+            gameObject.body.allowGravity = true;
+            gameObject.body.setVelocityX(0);
+            gameObject.dropped = true;
+            gameObject.body.bounce.set(0.5);
+            //globalThis.gameObject = null;
+            globalThis.dragging = false;
         });
 
     }   
 
     update() {
+        if (globalThis.dragging) {
+            globalThis.gameObject.setVelocityX((pointer.x - globalThis.gameObject.x) * 8);
+            globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
+        }
 
         player.update();
         this.box.update();
@@ -74,7 +100,7 @@ class Store extends Phaser.Scene {
         
         if(this.i >= 15){
             this.i=0;
-            new_cart_item = this.box;
+            new_cart_item = globalThis.gameObject;
             this.scene.start('cartScene');
         }
         
