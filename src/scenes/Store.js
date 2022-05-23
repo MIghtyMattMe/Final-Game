@@ -51,11 +51,12 @@ class Store extends Phaser.Scene {
 
         //player
         player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
-        //player.setGravityY(2000);
 
-        //item
-        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox", "Cereal", 1.0, 4.50).setDepth(1).setGravityY(400);
+        //item creation (repeat for each item)
+        this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox", "Cereal", 1.0, 4.53).setDepth(1);
         this.input.setDraggable(this.box);
+
+        //delcaring for drag
         this.input.dragDistanceThreshold = 0;
         globalThis.gameObject = null;
         globalThis.dragging = false;

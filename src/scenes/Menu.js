@@ -5,7 +5,8 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.image("menu_bg", "./assets/menu/menu_bg.png");
-        this.load.audio('bgm', './assets/Music/Shopping_Music.wav');
+        this.load.audio('menu_music', './assets/Music/Menu_Music.wav');
+        this.load.audio('game_music', './assets/Music/Game_Music.wav');
     }
 
     create() {
@@ -17,16 +18,34 @@ class Menu extends Phaser.Scene {
         this.input.mouse.disableContextMenu();
 
         //load music
-        let menu_music = this.sound.add('bgm', {volume: 0.5});
-        menu_music.setLoop(true);
-        menu_music.play();
-        
+        if (menu_music == null) {
+            menu_music = this.sound.add('menu_music', {volume: 0.5});
+            menu_music.setLoop(true);
+            menu_music.play();
+        }
+        //menu_music.play();
+
+        this.game_music = this.sound.add('game_music', {volume: 0.5});
+        this.game_music.setLoop(true);
+
+        //temporary change between scenes & text
+        let keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        keySPACE.on('down', (event) => {
+            menu_music.stop();
+            this.game_music.play();
+            this.scene.start('storeScene');
+        });
+
+        let txt = this.add.text(120, 140, "press Space to start game");
 
     }
 
     update() {
-        if(pointer.isDown){
+        /*if(pointer.isDown){
+            menu_music.stop();
+            this.game_music.play();
             this.scene.start('storeScene');
-        }
+        }*/
     }
 }

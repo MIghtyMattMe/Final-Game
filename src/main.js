@@ -16,12 +16,12 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             //gravity: {y: 400},
             fps: 60
         }
     },
-    scene: [Menu, Store, Cart, Bagging]
+    scene: [Menu, Store, Cart, Bagging, End]
 }
 
 let game = new Phaser.Game(config);
@@ -38,4 +38,6 @@ let player;
 //shoping cart
 let cart = [];
 let new_cart_item;
+//music
+let menu_music;
 

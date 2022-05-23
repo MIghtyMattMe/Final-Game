@@ -73,7 +73,7 @@ class Bagging extends Phaser.Scene {
             }
             
             //keeps from falling through ground
-            if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
+            if ((cart[i].y > (game.config.height - borderPadding * 10)) && (cart[i].y < 800)) { //ground's y
                 cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
             }
 
@@ -96,7 +96,6 @@ class Bagging extends Phaser.Scene {
                (cart[i].body.velocity.x > -10) && (cart[i].body.velocity.y > -10) && 
                (!globalThis.dragging) &&
                (!cart[i].dropped)) { 
-                console.log("to much");
                 //play bag moving sound
                 //"delete" the items in the bag
                 for (let j = 0; j < cart.length; j++) {
@@ -118,8 +117,7 @@ class Bagging extends Phaser.Scene {
 
         //if everything was bagged go back to menu and clear cart
         if (gameOver) {
-            cart = [];
-            this.scene.start('menuScene');
+            this.scene.start('endScene');
         }
     }
 }

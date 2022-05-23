@@ -8,7 +8,7 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.scene = scene;
       this.dropped = false;
 
-      this.setGravityY(2000);
+      this.setGravityY(400);
       this.setInteractive({ draggable: true });
       scene.input.setDraggable(this);
       this.texture = texture;
