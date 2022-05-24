@@ -43,9 +43,17 @@ class Cart extends Phaser.Scene {
         globalThis.gameObject = null;
         globalThis.dragging = false;
 
-        //setting up collisions
+        //setting up collisions and checking for weight
         this.physics.add.collider(this.groceries, ground);
-        this.physics.add.collider(this.groceries, this.groceries);
+        this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
+            if (!globalThis.dragging) {
+                if (obj1.y > (obj2.y + obj1.height) && (obj1.weight*1.5) < obj2.weight) {
+                    obj1.exist = false;
+                } else if ((obj1.y + obj2.height) < obj2.y && obj1.weight > (obj2.weight*1.5)) {
+                    obj2.exist = false;
+                }
+            }
+        });
 
         //drag items
         this.input.on('dragstart', function (pointer, gameObject) {
@@ -70,20 +78,29 @@ class Cart extends Phaser.Scene {
             globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
         }
         for (let i = 0; i < cart.length; i++) {
-            if (cart[i].x > (game.config.width + cart[i].width) || cart[i].x < -cart[i].width) {
-                cart[i].x = 400;
-                cart[i].y = -cart[i].height-100;
-                cart[i].setVelocity(0, 0);
-            }
-            if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
-                cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
-            }
-            if (cart[i].body.velocity.x > 1){
-                cart[i].setVelocityX(cart[i].body.velocity.x - 1);
-            } else if (cart[i].body.velocity.x < -1){
-                cart[i].setVelocityX(cart[i].body.velocity.x + 1);
+            //remove from cart if it shouldn't be there (broken by weight)
+            if (cart[i].exist == false) {
+                cart[i].destroy();
+                cart.splice(i, 1);
             } else {
-                cart[i].setVelocityX(0);
+                //moves the item if it was thrown out of bounds
+                if (cart[i].x > (game.config.width + cart[i].width) || cart[i].x < -cart[i].width) {
+                    cart[i].x = 400;
+                    cart[i].y = -cart[i].height-100;
+                    cart[i].setVelocity(0, 0);
+                }
+                //move's item if it fell out of bounds
+                if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
+                    cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
+                }
+                //brings x velocity to 0
+                if (cart[i].body.velocity.x > 1){
+                    cart[i].setVelocityX(cart[i].body.velocity.x - 1);
+                } else if (cart[i].body.velocity.x < -1){
+                    cart[i].setVelocityX(cart[i].body.velocity.x + 1);
+                } else {
+                    cart[i].setVelocityX(0);
+                }
             }
         }
     }

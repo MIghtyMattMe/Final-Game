@@ -14,28 +14,25 @@ class Store extends Phaser.Scene {
         this.load.image("shelf", "./assets/shop/test_shelf.png");
         this.load.image("cerealBox", "./assets/shop/test_box.png");
         this.load.image("cerealBox_x2", "./assets/shop/test_box_heavy.png");
-        this.load.image("cart_button", "./assets/shop/cart_button.png");
-        this.load.image("list_button", "./assets/shop/list_button.png");
+        this.load.image("List", "./assets/shop/List.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
 
-        //temp to get to cart
+        //temp buttons for navigation
         this.load.image("bag_button", "./assets/shop/bag_button.png");
+        this.load.image("cart_button", "./assets/shop/cart_button.png");
+        this.load.image("list_button", "./assets/shop/list_button.png");
 
     }
 
     create() {
-        //NOTES:
-        /*  set colliders to local
-            substitute this.box with items group declaration
-        */
         //create way to bagging sceen (temp)
         let bag_butt = this.add.sprite(700, 30, "bag_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('baggingScene');
         });
 
 
-        //test assets
+        //background, self, and cart button declaration
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
         this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
         let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
@@ -58,7 +55,7 @@ class Store extends Phaser.Scene {
         this.box = new Item(this, game.config.width/8, game.config.height/8, "cerealBox", "Cereal", 1.0, 4.53).setDepth(1);
         this.input.setDraggable(this.box);
         items.push(this.box);
-        this.box2 = new Item(this, game.config.width/8 + 150, game.config.height/8, "cerealBox_x2", "Cereal_x2", 1.0, 9.06).setDepth(1);
+        this.box2 = new Item(this, game.config.width/8 + 150, game.config.height/8, "cerealBox_x2", "Cereal_x2", 2.0, 9.06).setDepth(1);
         this.input.setDraggable(this.box2);
         items.push(this.box2);
 
@@ -77,6 +74,7 @@ class Store extends Phaser.Scene {
         this.physics.add.overlap(items, player, this.incrementI, null, this);
 
 
+        //drag start and end properties
         this.input.on('dragstart', function (pointer, gameObject) {
             gameObject.body.allowGravity = false;
             globalThis.gameObject = gameObject;
@@ -92,6 +90,26 @@ class Store extends Phaser.Scene {
             gameObject.body.bounce.set(0.5);
             //globalThis.gameObject = null;
             globalThis.dragging = false;
+        });
+
+        //List creation and cross out
+        let list_obj = this.add.sprite(30, 750, "List").setOrigin(0, 0).setDepth(2);
+        let list_butt = this.add.sprite(600, 30, "list_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+            if (list_obj.y < 740) {
+                this.tweens.add({
+                    targets: list_obj,
+                    y: 750,
+                    ease: 'Power1',
+                    duration: 1500
+                });
+            } else {
+                this.tweens.add({
+                    targets: list_obj,
+                    y: game.config.height - list_obj.height - 50,
+                    ease: 'Power1',
+                    duration: 1500
+                });
+            }
         });
 
     }   

@@ -15,11 +15,11 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.title = title;
       this.weight = weight;
       this.cost = cost;
+      
+      //exist will turn false if the item is 'broken' by to much weight
+      this.exist = true;
 
       this.store_collider; //this is used for the store scene to toggle collision with the shelf
-
-      //scene.input.on("dragstart", function(pointer){ this.disableG(); });
-      //scene.input.on("dragend", this.enableG(pointer));
 
     }
 

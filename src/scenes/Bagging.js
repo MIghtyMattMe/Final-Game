@@ -32,7 +32,15 @@ class Bagging extends Phaser.Scene {
 
         //setting up collisions
         this.physics.add.collider(this.groceries, ground);
-        this.physics.add.collider(this.groceries, this.groceries);
+        this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
+            if (!globalThis.dragging) {
+                if (obj1.y > (obj2.y + obj1.height) && (obj1.weight*1.5) < obj2.weight) {
+                    obj1.exist = false;
+                } else if ((obj1.y + obj2.height) < obj2.y && obj1.weight > (obj2.weight*1.5)) {
+                    obj2.exist = false;
+                }
+            }
+        });
 
         //drag items
         this.input.on('dragstart', function (pointer, gameObject) {
@@ -60,58 +68,64 @@ class Bagging extends Phaser.Scene {
         let gameOver = true;
         for (let i = 0; i < cart.length; i++) {
             cart[i].update();
-            //check if off conveyor belt or off screen
-            if (cart[i].x > 300){
-                cart[i].setGravityX(0);
+            //check if the item was deleted first
+            if (cart[i].exist == false) {
+                cart[i].destroy();
+                cart.splice(i, 1);
             } else {
-                cart[i].setGravityX(250);
-            }
-            if (cart[i].x > (game.config.width + cart[i].width)) {
-                cart[i].x = 400;
-                cart[i].y = -cart[i].height-100;
-                cart[i].setVelocity(0, 0);
-            }
-            
-            //keeps from falling through ground
-            if ((cart[i].y > (game.config.height - borderPadding * 10)) && (cart[i].y < 800)) { //ground's y
-                cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
-            }
+                //check if off conveyor belt or off screen
+                if (cart[i].x > 300){
+                    cart[i].setGravityX(0);
+                } else {
+                    cart[i].setGravityX(250);
+                }
+                if (cart[i].x > (game.config.width + cart[i].width)) {
+                    cart[i].x = 400;
+                    cart[i].y = -cart[i].height-100;
+                    cart[i].setVelocity(0, 0);
+                }
+                
+                //keeps from falling through ground
+                if ((cart[i].y > (game.config.height - borderPadding * 10)) && (cart[i].y < 800)) { //ground's y
+                    cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
+                }
 
-            //resets X velocity
-            if (cart[i].body.velocity.x > 1) {
-                cart[i].setVelocityX(cart[i].body.velocity.x - 1);
-            } else if (cart[i].body.velocity.x < -1) {
-                cart[i].setVelocityX(cart[i].body.velocity.x + 1);
-            } else {
-                cart[i].setVelocityX(0);
-            }
+                //resets X velocity
+                if (cart[i].body.velocity.x > 1) {
+                    cart[i].setVelocityX(cart[i].body.velocity.x - 1);
+                } else if (cart[i].body.velocity.x < -1) {
+                    cart[i].setVelocityX(cart[i].body.velocity.x + 1);
+                } else {
+                    cart[i].setVelocityX(0);
+                }
 
-            //check if bag full, aka
-            //if y is greater than walls of bag and x is between walls
-            //if the velocity of both x and y is almost 0
-            //if we are not dragging it
-            //if it wasn't just dropped
-            if((cart[i].y < 150) && (cart[i].x < game.config.width/2 + borderPadding * 24) && (cart[i].x > game.config.width/2 + borderPadding * 10) &&
-               (cart[i].body.velocity.x < 10) && (cart[i].body.velocity.y < 10) && 
-               (cart[i].body.velocity.x > -10) && (cart[i].body.velocity.y > -10) && 
-               (!globalThis.dragging) &&
-               (!cart[i].dropped)) { 
-                //play bag moving sound
-                //"delete" the items in the bag
-                for (let j = 0; j < cart.length; j++) {
-                    if (cart[j].x > game.config.width/2 + borderPadding * 6) { //if past the left wall of the bag
-                        cart[j].setAlpha(0);
-                        cart[j].y += 1000;
+                //check if bag full, aka
+                //if y is greater than walls of bag and x is between walls
+                //if the velocity of both x and y is almost 0
+                //if we are not dragging it
+                //if it wasn't just dropped
+                if((cart[i].y < 150) && (cart[i].x < game.config.width/2 + borderPadding * 24) && (cart[i].x > game.config.width/2 + borderPadding * 10) &&
+                (cart[i].body.velocity.x < 10) && (cart[i].body.velocity.y < 10) && 
+                (cart[i].body.velocity.x > -10) && (cart[i].body.velocity.y > -10) && 
+                (!globalThis.dragging) &&
+                (!cart[i].dropped)) { 
+                    //play bag moving sound
+                    //"delete" the items in the bag
+                    for (let j = 0; j < cart.length; j++) {
+                        if (cart[j].x > game.config.width/2 + borderPadding * 6) { //if past the left wall of the bag
+                            cart[j].setAlpha(0);
+                            cart[j].y += 1000;
+                        }
                     }
                 }
-            }
 
-            //check if everything was bagged
-            //(if something is outside bagging area or if we are dragging no game over)
-            if ((cart[i].x > game.config.width/2 + borderPadding * 24) || 
-                (cart[i].x < game.config.width/2 + borderPadding * 10) || 
-                globalThis.dragging) {
-                gameOver = false;
+                //check if everything was bagged
+                //(if something is outside bagging area or if we are dragging no game over)
+                if ((cart[i].x > game.config.width/2 + borderPadding * 24) || 
+                    (cart[i].x < game.config.width/2 + borderPadding * 10) || 
+                    globalThis.dragging) {
+                    gameOver = false;
+                }
             }
         }
 

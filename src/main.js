@@ -16,7 +16,7 @@ let config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             //gravity: {y: 400},
             fps: 60
         }
@@ -38,6 +38,8 @@ let player;
 //shoping cart
 let cart = [];
 let new_cart_item;
+//shopping list
+let list = ["Cereal", "Cereal_x2"];
 //music
 let menu_music;
 
