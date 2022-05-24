@@ -16,6 +16,8 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.weight = weight;
       this.cost = cost;
 
+      this.store_collider; //this is used for the store scene to toggle collision with the shelf
+
       //scene.input.on("dragstart", function(pointer){ this.disableG(); });
       //scene.input.on("dragend", this.enableG(pointer));
 
