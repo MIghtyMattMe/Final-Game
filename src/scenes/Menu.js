@@ -34,7 +34,7 @@ class Menu extends Phaser.Scene {
         keySPACE.on('down', (event) => {
             menu_music.stop();
             this.game_music.play();
-            this.scene.start('storeScene');
+            this.scene.start('storeAisleRScene');
         });
 
         let txt = this.add.text(120, 140, "press Space to start game");
