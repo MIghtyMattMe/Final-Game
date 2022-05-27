@@ -36,12 +36,20 @@ class End extends Phaser.Scene {
 
         let txt = this.add.text(120, 140, "Left click to go back to menu");
         let txt2 = this.add.text(120, 200, "Total cost: $" + cart_cost);
+        this.end = false;
+        this.ending();
     }
 
     update() {
-        if(pointer.isDown){
+        if(pointer.isDown && this.end){
             cart = [];
             this.scene.start('menuScene');
         }
+    }
+
+    ending() {
+        this.clock = this.time.delayedCall(500, () => {
+            this.end = true;
+        }, null, this);
     }
 }

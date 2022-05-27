@@ -20,23 +20,19 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.exist = true;
 
       this.store_collider; //this is used for the store scene to toggle collision with the shelf
-
     }
 
     update() {
       if (this.dropped) {
         this.scene.clock = this.scene.time.delayedCall(500, () => {
-          this.dropped = false;
-      }, null, this);
+            this.dropped = false;
+        }, null, this);
       }
-
-      //anim and physics maybe
-
     }
 
     //call when adding things to cart inorder to give a new reference to item
     remake(scene, x, y) {
-      let remade = new Item(scene, x, y, this.texture, this.title, this.weight, this.cost).setDepth(1);
+      let remade = new Item(scene, x, y, this.texture, this.title, this.weight, this.cost).setDepth(1).setScale(this.scale);
       return remade;
     }
 }

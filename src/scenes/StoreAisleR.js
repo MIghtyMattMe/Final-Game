@@ -14,7 +14,6 @@ class StoreAisleR extends Phaser.Scene {
         this.load.image("collider", "./assets/shop/collider.png");
 
         //temp buttons for navigation
-        this.load.image("bag_button", "./assets/shop/bag_button.png");
         this.load.image("cart_button", "./assets/shop/cart_button.png");
         this.load.image("list_button", "./assets/shop/list_button.png");
 
@@ -25,12 +24,7 @@ class StoreAisleR extends Phaser.Scene {
     }
 
     create() {
-        //create way to bagging sceen (temp)
-        let bag_butt = this.add.sprite(700, 30, "bag_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start('storeScene');
-        });
-
-
+        curScene = "storeAisleRScene";
         //background, shelf, and cart button declaration 
         this.bg = this.add.tileSprite(0,0, 980, 720, "aisleRbg").setOrigin(0,0);
 
@@ -40,16 +34,14 @@ class StoreAisleR extends Phaser.Scene {
 
         //hidden arrow buttons
         this.leftButton = this.add.sprite(-40, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleChipsScene";
-            this.scene.start("storeAisleChipsScene");});
+            this.scene.start("storeAisleChipsScene");
+        });
         this.leftButton2 = this.add.sprite(250, 70, "button_left").setOrigin(0,0).setScale(.60).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleCerealScene";
-            this.scene.start("storeAisleCerealScene");});
-       
+            this.scene.start("storeAisleCerealScene");
+        });
         this.rightButton = this.add.sprite(game.config.width - 270, 60, "button_right").setOrigin(0,0).setScale(.65).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleDairyScene";
-            this.scene.start("storeAisleDairyScene");});
-        
+            this.scene.start("storeAisleDairyScene");
+        });
         this.tweens.add({
             targets:[this.leftButton, this.leftButton2, this.rightButton],
             x: '-=10',
@@ -57,8 +49,6 @@ class StoreAisleR extends Phaser.Scene {
             yoyo:true,
             repeat:-1
         });
-
-       
 
         //List creation and cross out
         let list_obj = this.add.sprite(30, 750, "List").setOrigin(0, 0).setDepth(2);
@@ -79,15 +69,8 @@ class StoreAisleR extends Phaser.Scene {
                 });
             }
         });
-
     }   
 
     update() {
-        
-        
-
-        
     }
-
-    
 }

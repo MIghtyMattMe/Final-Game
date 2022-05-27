@@ -38,7 +38,7 @@ class Menu extends Phaser.Scene {
             this.scene.start('storeAisleRScene');
         });
 
-        let txt = this.add.text(120, 140, "press Space to start game");
+        let txt = this.add.text(120, 140, "press Space to start game\nUse the mouse to shop for food!");
 
     }
 

@@ -14,7 +14,6 @@ class StoreAisleL extends Phaser.Scene {
         this.load.image("collider", "./assets/shop/collider.png");
 
         //temp buttons for navigation
-        this.load.image("bag_button", "./assets/shop/bag_button.png");
         this.load.image("cart_button", "./assets/shop/cart_button.png");
         this.load.image("list_button", "./assets/shop/list_button.png");
 
@@ -25,12 +24,7 @@ class StoreAisleL extends Phaser.Scene {
     }
 
     create() {
-        //create way to bagging sceen (temp)
-        let bag_butt = this.add.sprite(700, 30, "bag_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start('baggingScene');
-        });
-
-
+        curScene = "storeAisleLScene";
         //background, shelf, and cart button declaration 
         this.bg = this.add.tileSprite(0,0, 980, 720, "aisleLbg").setOrigin(0,0);
 
@@ -39,13 +33,15 @@ class StoreAisleL extends Phaser.Scene {
         });
 
         //hidden arrow buttons
-        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("baggingScene");});
-       
-        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleChipsScene");});
-        this.rightButton2 = this.add.sprite(game.config.width/2 + 150, 70, "button_right").setOrigin(0,0).setScale(.60).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleCerealScene");});
+        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            this.scene.start("baggingScene");
+        });
+        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            this.scene.start("storeAisleChipsScene");
+        });
+        this.rightButton2 = this.add.sprite(game.config.width/2 + 150, 70, "button_right").setOrigin(0,0).setScale(.60).setInteractive().on("pointerdown", ()=> {
+            this.scene.start("storeAisleCerealScene");
+        });
         this.tweens.add({
             targets:[this.leftButton, this.rightButton, this.rightButton2],
             x: '-=10',
@@ -75,15 +71,8 @@ class StoreAisleL extends Phaser.Scene {
                 });
             }
         });
-
     }   
-
-    update() {
-        
-        
-
-        
-    }
-
     
+    update() {
+    }
 }

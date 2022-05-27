@@ -8,6 +8,7 @@ Zoey Laytart
 Matthew Meacham
 
 */
+
 let config = {
     type: Phaser.CANVAS,
     width: 980,
@@ -38,11 +39,8 @@ let player;
 //shoping cart
 let cart = [];
 let new_cart_item;
-//shopping list
-let list = ["Cereal", "Cereal_x2"];
 //music
 let menu_music;
-
 //current scene
 let curScene;
 

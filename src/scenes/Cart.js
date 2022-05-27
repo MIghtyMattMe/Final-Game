@@ -33,7 +33,8 @@ class Cart extends Phaser.Scene {
             //this.input.setDraggable(why);
         }
         for (let i = 0; i < cart.length; i++) {
-            cart[i] = cart[i].remake(this, cart[i].x, cart[i].y).setScale(0.4).setSize(160, 340, true);
+            cart[i] = cart[i].remake(this, cart[i].x, cart[i].y);
+            cart[i].setSize(cart[i].width - 150, cart[i].height - 100, true);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);
@@ -47,9 +48,12 @@ class Cart extends Phaser.Scene {
         this.physics.add.collider(this.groceries, ground);
         this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
             if (!globalThis.dragging) {
-                if (obj1.y > (obj2.y + obj1.height) && (obj1.weight*1.5) < obj2.weight) {
+                console.log(Math.abs(obj1.x-obj2.x));
+                console.log(obj1.width/2);
+                console.log(Math.abs(obj1.x-obj2.x) < obj1.width/2);
+                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < obj1.width) {
                     obj1.exist = false;
-                } else if ((obj1.y + obj2.height) < obj2.y && obj1.weight > (obj2.weight*1.5)) {
+                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < obj2.width) {
                     obj2.exist = false;
                 }
             }
@@ -78,6 +82,7 @@ class Cart extends Phaser.Scene {
             globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
         }
         for (let i = 0; i < cart.length; i++) {
+            cart[i].update();
             //remove from cart if it shouldn't be there (broken by weight)
             if (cart[i].exist == false) {
                 cart[i].destroy();

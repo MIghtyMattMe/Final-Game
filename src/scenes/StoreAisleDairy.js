@@ -18,25 +18,20 @@ class StoreAisleDairy extends Phaser.Scene {
         this.load.image("collider", "./assets/shop/collider.png");
 
         //temp buttons for navigation
-        this.load.image("bag_button", "./assets/shop/bag_button.png");
         this.load.image("cart_button", "./assets/shop/cart_button.png");
         this.load.image("list_button", "./assets/shop/list_button.png");
 
         //arrows
         this.load.image("button_left", "./assets/shop/bgs/button_left.png");
         this.load.image("button_right", "./assets/shop/bgs/button_right.png");
+        
 
     }
 
     create() {
-        //create way to bagging sceen (temp)
-        let bag_butt = this.add.sprite(700, 30, "bag_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start('baggingScene');
-        });
-
-
+        curScene = "storeAisleDairyScene";
         //cart button declaration
-        let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let cart_butt = this.add.sprite(500, 30, "cart_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
 
@@ -53,7 +48,6 @@ class StoreAisleDairy extends Phaser.Scene {
 
         //arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
         this.tweens.add({
             targets:this.leftButton,
@@ -66,25 +60,17 @@ class StoreAisleDairy extends Phaser.Scene {
 
 
         //player
-        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1).setScale(.7);
+        player = new Player(this, game.config.width/2 + 200, game.config.height-(180*.80), "cart").setDepth(1).setScale(.7);
 
         //item creation (repeat for each item)
         let items = []
-        this.milk = new Item(this, game.config.width/2, game.config.height/8 + 100, "milk", "Milk", 2.0, 4.53).setDepth(1).setScale(.2);
-        this.milk.body.setSize(this.milk.width/2 - 100, this.milk.height - 170, true);
-        //this.box.setInteractive({useHandCursor:true});
-        /*this.tweens.add({
-            targets:this.box,
-            angle:15,
-            duration:500,
-            yoyo:true,
-            repeat:-1
-        });*/
-
+        this.milk = new Item(this, game.config.width/2, collider.y - collider.height - 20, "milk", "Milk", 2.0, 4.53).setDepth(1).setScale(.2);
+        this.milk.setSize(this.milk.width - 150, this.milk.height - 100, true);
         this.input.setDraggable(this.milk);
         items.push(this.milk);
-        this.egg = new Item(this, game.config.width - 100, game.config.height/8 + 100, "egg", "Egg", 1.0, 9.06).setDepth(1).setScale(.1);
-        this.egg.body.setSize(this.egg.width - 150, this.egg.height - 100, true);
+
+        this.egg = new Item(this, game.config.width - 100, collider.y - collider.height, "egg", "Egg", 1.0, 9.06).setDepth(1).setScale(.1);
+        this.egg.setSize(this.egg.width - 150, this.egg.height - 100, true);
         this.input.setDraggable(this.egg);
         items.push(this.egg);
 
@@ -160,11 +146,9 @@ class StoreAisleDairy extends Phaser.Scene {
             this.i=0;
             new_cart_item = globalThis.gameObject;
             this.scene.start('cartScene');
-        }
-
-        
+        }   
     }
-
+    
     incrementI(){
         this.i++;
     }

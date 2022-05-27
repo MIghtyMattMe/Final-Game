@@ -17,7 +17,6 @@ class StoreAisleChips extends Phaser.Scene {
         this.load.image("collider", "./assets/shop/collider.png");
 
         //temp buttons for navigation
-        this.load.image("bag_button", "./assets/shop/bag_button.png");
         this.load.image("cart_button", "./assets/shop/cart_button.png");
         this.load.image("list_button", "./assets/shop/list_button.png");
 
@@ -28,18 +27,13 @@ class StoreAisleChips extends Phaser.Scene {
     }
 
     create() {
-        //create way to bagging sceen (temp)
-        let bag_butt = this.add.sprite(700, 30, "bag_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start('baggingScene');
-        });
-
-
+        curScene = "storeAisleChipsScene";
         // cart button declaration 
-        let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let cart_butt = this.add.sprite(500, 30, "cart_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
 
-        //hidden colliders
+        //hidden collider 
         let collider = this.physics.add.sprite(0, 250, "collider").setOrigin(0,0);
         collider.body.allowGravity = false;
         collider.setImmovable();
@@ -52,12 +46,11 @@ class StoreAisleChips extends Phaser.Scene {
 
         //hidden arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleLScene";
-            this.scene.start("storeAisleLScene");});
-                                
+            this.scene.start("storeAisleLScene");
+        });                     
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
-            curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            this.scene.start("storeAisleRScene");
+        });
         this.tweens.add({
             targets:[this.leftButton, this.rightButton],
             x: '-=10',
@@ -68,14 +61,12 @@ class StoreAisleChips extends Phaser.Scene {
 
 
         //player
-        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1).setScale(.7);
+        player = new Player(this, game.config.width/2 + 200, game.config.height-(180*.80), "cart").setDepth(1).setScale(.7);
 
         //item creation (repeat for each item)
         let items = []
-        this.chips = new Item(this, game.config.width/2 - 100, game.config.height/8 + 100, "chips", "Chips", 1.0, 4.53).setDepth(1).setScale(0.25);
+        this.chips = new Item(this, game.config.width/2 - 100, collider.y - collider.height - 25, "chips", "Chips", 1.0, 4.53).setDepth(1).setScale(0.25);
         this.chips.body.setSize(this.chips.width - 160, this.chips.height - 110, true);
-        //this.box.setInteractive({useHandCursor:true});
-
         this.input.setDraggable(this.chips);
         items.push(this.chips);
 

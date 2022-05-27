@@ -20,7 +20,8 @@ class Bagging extends Phaser.Scene {
         this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityX: 250, gravityY: 400});
         
         for (let i = 0; i < cart.length; i++) {
-            cart[i] = cart[i].remake(this, -cart[i].width - (200*i), grd1.y - cart[i].height - 10);
+            cart[i] = cart[i].remake(this, -(200*(i + 1)), grd1.y - cart[i].height - 10);
+            cart[i].setSize(cart[i].width - 150, cart[i].height - 100, true);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);
@@ -34,9 +35,9 @@ class Bagging extends Phaser.Scene {
         this.physics.add.collider(this.groceries, ground);
         this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
             if (!globalThis.dragging) {
-                if (obj1.y > (obj2.y + obj1.height) && (obj1.weight*1.5) < obj2.weight) {
+                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < obj1.width-10) {
                     obj1.exist = false;
-                } else if ((obj1.y + obj2.height) < obj2.y && obj1.weight > (obj2.weight*1.5)) {
+                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < obj2.width-10) {
                     obj2.exist = false;
                 }
             }
