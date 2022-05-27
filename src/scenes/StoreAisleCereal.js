@@ -9,10 +9,9 @@ class StoreAisleCereal extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("storeCerealbg", "./assets/shop/bgs/aisle_chips.png");
+        this.load.image("storeCerealbg", "./assets/shop/bgs/aisle_cereal.png");
         this.load.image("cart", "./assets/shop/test_cart.png");
-        this.load.image("cerealBox", "./assets/shop/test_box.png");
-        this.load.image("cerealBox_x2", "./assets/shop/test_box_heavy.png");
+        this.load.image("cerealBox", "./assets/shop/items/cereal.png");
         this.load.image("List", "./assets/shop/List.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
@@ -62,7 +61,8 @@ class StoreAisleCereal extends Phaser.Scene {
 
         //item creation (repeat for each item)
         let items = []
-        this.box = new Item(this, game.config.width/8, game.config.height/8 + 100, "cerealBox", "Cereal", 1.0, 4.53).setDepth(1);
+        this.box = new Item(this, game.config.width/2 + 100, game.config.height/8 + 100, "cerealBox", "Cereal", 1.0, 4.53).setDepth(1).setScale(0.25);
+        this.box.body.setSize(this.box.width - 150, this.box.height - 100, true);
         //this.box.setInteractive({useHandCursor:true});
         /*this.tweens.add({
             targets:this.box,
@@ -74,9 +74,6 @@ class StoreAisleCereal extends Phaser.Scene {
 
         this.input.setDraggable(this.box);
         items.push(this.box);
-        this.box2 = new Item(this, game.config.width/8 + 150, game.config.height/8 + 100, "cerealBox_x2", "Cereal_x2", 2.0, 9.06).setDepth(1);
-        this.input.setDraggable(this.box2);
-        items.push(this.box2);
 
         //declaring for drag
         this.input.dragDistanceThreshold = 0;
@@ -141,7 +138,6 @@ class StoreAisleCereal extends Phaser.Scene {
 
         player.update();
         this.box.update();
-        this.box2.update();
 
         //if held over cart - enter cart scene
         //this.physics.arcade.overlap(this.box, player, incrementI, null, this);

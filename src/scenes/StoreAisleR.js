@@ -39,11 +39,13 @@ class StoreAisleR extends Phaser.Scene {
         });
 
         //hidden arrow buttons
-        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("Bagging");});
+        this.leftButton = this.add.sprite(-40, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
+                                .on("pointerdown", ()=> {this.scene.start("storeAisleChipsScene");});
+        this.leftButton2 = this.add.sprite(300, 70, "button_left").setOrigin(0,0).setScale(.60).setInteractive()
+                                .on("pointerdown", ()=> {this.scene.start("storeAisleCerealScene");});
        
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleDScene");});
+                                .on("pointerdown", ()=> {this.scene.start("storeAisleDairyScene");});
         
 
         //hidden colliders

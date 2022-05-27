@@ -11,8 +11,7 @@ class StoreAisleChips extends Phaser.Scene {
     preload() {
         this.load.image("store_bg", "./assets/shop/bgs/aisle_chips.png");
         this.load.image("cart", "./assets/shop/test_cart.png");
-        this.load.image("cerealBox", "./assets/shop/test_box.png");
-        this.load.image("cerealBox_x2", "./assets/shop/test_box_heavy.png");
+        this.load.image("chips", "./assets/shop/items/chips.png");
         this.load.image("List", "./assets/shop/List.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
@@ -62,7 +61,8 @@ class StoreAisleChips extends Phaser.Scene {
 
         //item creation (repeat for each item)
         let items = []
-        this.box = new Item(this, game.config.width/8, game.config.height/8 + 100, "cerealBox", "Cereal", 1.0, 4.53).setDepth(1);
+        this.chips = new Item(this, game.config.width/2 - 100, game.config.height/8 + 100, "chips", "Chips", 1.0, 4.53).setDepth(1).setScale(0.25);
+        this.chips.body.setSize(this.chips.width - 160, this.chips.height - 110, true);
         //this.box.setInteractive({useHandCursor:true});
         /*this.tweens.add({
             targets:this.box,
@@ -72,11 +72,8 @@ class StoreAisleChips extends Phaser.Scene {
             repeat:-1
         });*/
 
-        this.input.setDraggable(this.box);
-        items.push(this.box);
-        this.box2 = new Item(this, game.config.width/8 + 150, game.config.height/8 + 100, "cerealBox_x2", "Cereal_x2", 2.0, 9.06).setDepth(1);
-        this.input.setDraggable(this.box2);
-        items.push(this.box2);
+        this.input.setDraggable(this.chips);
+        items.push(this.chips);
 
         //declaring for drag
         this.input.dragDistanceThreshold = 0;
@@ -140,8 +137,7 @@ class StoreAisleChips extends Phaser.Scene {
         }
 
         player.update();
-        this.box.update();
-        this.box2.update();
+        this.chips.update();
 
         //if held over cart - enter cart scene
         //this.physics.arcade.overlap(this.box, player, incrementI, null, this);
