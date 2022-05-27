@@ -11,7 +11,7 @@ class Cart extends Phaser.Scene {
     create() {
         //create the back button
         let back_butt = this.add.sprite(500, 30, "back_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
-            this.scene.start('storeScene');
+            this.scene.start(curScene);
         });
 
         //create cart 'box'/outline
@@ -33,7 +33,7 @@ class Cart extends Phaser.Scene {
             //this.input.setDraggable(why);
         }
         for (let i = 0; i < cart.length; i++) {
-            cart[i] = cart[i].remake(this, cart[i].x, cart[i].y)
+            cart[i] = cart[i].remake(this, cart[i].x, cart[i].y).setScale(0.4).setSize(160, 340, true);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);

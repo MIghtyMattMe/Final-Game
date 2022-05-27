@@ -34,6 +34,7 @@ class Menu extends Phaser.Scene {
         keySPACE.on('down', (event) => {
             menu_music.stop();
             this.game_music.play();
+            curScene = "storeAisleRScene";
             this.scene.start('storeAisleRScene');
         });
 

@@ -35,18 +35,11 @@ class StoreAisleDairy extends Phaser.Scene {
         });
 
 
-        //background, shelf, and cart button declaration 
-        this.bg = this.add.tileSprite(0,0, 980, 720, "storeAisleDairybg").setOrigin(0,0);
-        //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
+        //cart button declaration
         let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
 
-        //hidden arrow buttons
-        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleRScene");});
-                                
-        
         //hidden colliders
         let collider = this.physics.add.sprite(0, 265, "collider").setOrigin(0,0);
         collider.body.allowGravity = false;
@@ -55,12 +48,30 @@ class StoreAisleDairy extends Phaser.Scene {
         ground.body.allowGravity = false;
         ground.setImmovable();
 
+        //background
+        this.bg = this.add.tileSprite(0,0, 980, 720, "storeAisleDairybg").setOrigin(0,0);
+
+        //arrow buttons
+        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleRScene";
+            this.scene.start("storeAisleRScene");});
+        this.tweens.add({
+            targets:this.leftButton,
+            x: '-=10',
+            ease: 'Sine.easeInOut',
+            yoyo:true,
+            repeat:-1
+        });                            
+        
+
+
         //player
-        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
+        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1).setScale(.7);
 
         //item creation (repeat for each item)
         let items = []
         this.milk = new Item(this, game.config.width/2, game.config.height/8 + 100, "milk", "Milk", 2.0, 4.53).setDepth(1).setScale(.2);
+        this.milk.body.setSize(this.milk.width/2 - 100, this.milk.height - 170, true);
         //this.box.setInteractive({useHandCursor:true});
         /*this.tweens.add({
             targets:this.box,
@@ -73,6 +84,7 @@ class StoreAisleDairy extends Phaser.Scene {
         this.input.setDraggable(this.milk);
         items.push(this.milk);
         this.egg = new Item(this, game.config.width - 100, game.config.height/8 + 100, "egg", "Egg", 1.0, 9.06).setDepth(1).setScale(.1);
+        this.egg.body.setSize(this.egg.width - 150, this.egg.height - 100, true);
         this.input.setDraggable(this.egg);
         items.push(this.egg);
 

@@ -39,22 +39,24 @@ class StoreAisleR extends Phaser.Scene {
         });
 
         //hidden arrow buttons
-        this.leftButton = this.add.sprite(-40, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleChipsScene");});
-        this.leftButton2 = this.add.sprite(300, 70, "button_left").setOrigin(0,0).setScale(.60).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleCerealScene");});
+        this.leftButton = this.add.sprite(-40, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleChipsScene";
+            this.scene.start("storeAisleChipsScene");});
+        this.leftButton2 = this.add.sprite(250, 70, "button_left").setOrigin(0,0).setScale(.60).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleCerealScene";
+            this.scene.start("storeAisleCerealScene");});
        
-        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleDairyScene");});
+        this.rightButton = this.add.sprite(game.config.width - 270, 60, "button_right").setOrigin(0,0).setScale(.65).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleDairyScene";
+            this.scene.start("storeAisleDairyScene");});
         
-
-        //hidden colliders
-        let collider = this.physics.add.sprite(0, 250, "collider").setOrigin(0,0);
-        collider.body.allowGravity = false;
-        collider.setImmovable();
-        let ground = this.physics.add.sprite(0, game.config.height - 50, "collider").setOrigin(0,0);
-        ground.body.allowGravity = false;
-        ground.setImmovable();
+        this.tweens.add({
+            targets:[this.leftButton, this.leftButton2, this.rightButton],
+            x: '-=10',
+            ease: 'Sine.easeInOut',
+            yoyo:true,
+            repeat:-1
+        });
 
        
 

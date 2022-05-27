@@ -34,19 +34,10 @@ class StoreAisleCereal extends Phaser.Scene {
         });
 
 
-        //background, shelf, and cart button declaration 
-        this.bg = this.add.tileSprite(0,0, 980, 720, "storeCerealbg").setOrigin(0,0);
-        //this.shelf = this.add.sprite(0, 15, "shelf").setOrigin(0,0);
+        //cart button declaration 
         let cart_butt = this.add.sprite(500, 30, "cart_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
-
-        //hidden arrow buttons
-        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleLScene");});
-                                
-        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive()
-                                .on("pointerdown", ()=> {this.scene.start("storeAisleRScene");});
 
         //hidden colliders
         let collider = this.physics.add.sprite(0, 250, "collider").setOrigin(0,0);
@@ -56,8 +47,28 @@ class StoreAisleCereal extends Phaser.Scene {
         ground.body.allowGravity = false;
         ground.setImmovable();
 
+        //background
+        this.bg = this.add.tileSprite(0,0, 980, 720, "storeCerealbg").setOrigin(0,0);
+
+        //hidden arrow buttons
+        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleLScene";
+            this.scene.start("storeAisleLScene");});
+                                
+        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleRScene";
+            this.scene.start("storeAisleRScene");});
+        this.tweens.add({
+            targets:[this.leftButton, this.rightButton],
+            x: '-=10',
+            ease: 'Sine.easeInOut',
+            yoyo:true,
+            repeat:-1
+        });
+
+
         //player
-        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1);
+        player = new Player(this, game.config.width/2 + 200, game.config.height-180, "cart").setDepth(1).setScale(.7);
 
         //item creation (repeat for each item)
         let items = []

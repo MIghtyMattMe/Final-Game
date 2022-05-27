@@ -46,12 +46,13 @@ class StoreAisleL extends Phaser.Scene {
                                 .on("pointerdown", ()=> {this.scene.start("storeAisleChipsScene");});
         this.rightButton2 = this.add.sprite(game.config.width/2 + 150, 70, "button_right").setOrigin(0,0).setScale(.60).setInteractive()
                                 .on("pointerdown", ()=> {this.scene.start("storeAisleCerealScene");});
-        
-
-        //hidden colliders
-        let ground = this.physics.add.sprite(0, game.config.height - 50, "collider").setOrigin(0,0);
-        ground.body.allowGravity = false;
-        ground.setImmovable();
+        this.tweens.add({
+            targets:[this.leftButton, this.rightButton, this.rightButton2],
+            x: '-=10',
+            ease: 'Sine.easeInOut',
+            yoyo:true,
+            repeat:-1
+        });
 
        
 
