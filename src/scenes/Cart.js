@@ -48,12 +48,9 @@ class Cart extends Phaser.Scene {
         this.physics.add.collider(this.groceries, ground);
         this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
             if (!globalThis.dragging) {
-                console.log(Math.abs(obj1.x-obj2.x));
-                console.log(obj1.width/2);
-                console.log(Math.abs(obj1.x-obj2.x) < obj1.width/2);
-                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < obj1.width) {
+                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < obj1.width * obj1.scaleX) {
                     obj1.exist = false;
-                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < obj2.width) {
+                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < obj2.width * obj2.scaleX) {
                     obj2.exist = false;
                 }
             }
