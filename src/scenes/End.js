@@ -27,15 +27,8 @@ class End extends Phaser.Scene {
             cart_cost += cart[i].cost;
         }
 
-        //temporary change between scenes & text
-        /*let keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        keySPACE.on('down', (event) => {
-            this.scene.start('menuScene');
-        });*/
-
         let txt = this.add.text(120, 140, "Left click to go back to menu");
-        let txt2 = this.add.text(120, 200, "Total cost: $" + cart_cost);
+        let txt2 = this.add.text(120, 200, "Total cost: $" + (Math.floor(cart_cost*100)/100).toFixed(2));
         this.end = false;
         this.ending();
     }

@@ -34,9 +34,9 @@ class Bagging extends Phaser.Scene {
         this.physics.add.collider(this.groceries, ground);
         this.physics.add.collider(this.groceries, this.groceries, (obj1, obj2) => {
             if (!globalThis.dragging) {
-                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < obj1.width * obj1.scaleX) {
+                if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < (obj1.sizeX * obj1.scaleX)) {
                     obj1.exist = false;
-                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < obj2.width * obj2.scaleX) {
+                } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < (obj2.sizeX * obj2.scaleX)) {
                     obj2.exist = false;
                 }
             }
