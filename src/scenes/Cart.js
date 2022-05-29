@@ -27,14 +27,13 @@ class Cart extends Phaser.Scene {
         this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityY: 400});
         if (new_cart_item != null) {
             let why = new_cart_item.remake(this, 400, 100);
+            why.setScale(why.scaleX * 1.5);
             why.setAlpha(0);
             new_cart_item = null;
             cart.push(why);
-            //this.input.setDraggable(why);
         }
         for (let i = 0; i < cart.length; i++) {
             cart[i] = cart[i].remake(this, cart[i].x, cart[i].y);
-            cart[i].setSize(cart[i].width - 150, cart[i].height - 100, true);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);
@@ -95,6 +94,22 @@ class Cart extends Phaser.Scene {
                 if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
                     cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
                 }
+                //stops bounce from setting things ontop on another
+                /*if (cart[i].body.touching.down) {
+                    cart[i].setGravityY(0);
+                    cart[i].setVelocityY(0);
+                } else {
+                    cart[i].setGravityY(400);
+                }*/
+                /*if ((cart[i].body.velocity.y > -10) && (cart[i].body.velocity.y < 10)) {
+                    cart[i].setBounceY(0);
+                    //cart[i].body.velocity.y = 0;
+                    if (cart[i].touching) {
+                        cart[i].setGravityY(0);
+                    }
+                } else {
+                    cart[i].setBounceY(0.5);
+                }*/
                 //brings x velocity to 0
                 if (cart[i].body.velocity.x > 1){
                     cart[i].setVelocityX(cart[i].body.velocity.x - 1);

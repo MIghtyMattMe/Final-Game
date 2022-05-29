@@ -21,7 +21,6 @@ class Bagging extends Phaser.Scene {
         
         for (let i = 0; i < cart.length; i++) {
             cart[i] = cart[i].remake(this, -(200*(i + 1)), grd1.y - cart[i].height - 10);
-            cart[i].setSize(cart[i].width - 150, cart[i].height - 100, true);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);

@@ -15,6 +15,10 @@ class Item extends Phaser.Physics.Arcade.Sprite {
       this.title = title;
       this.weight = weight;
       this.cost = cost;
+
+      //used to remake size
+      this.sizeX
+      this.sizeY
       
       //exist will turn false if the item is 'broken' by to much weight
       this.exist = true;
@@ -33,6 +37,9 @@ class Item extends Phaser.Physics.Arcade.Sprite {
     //call when adding things to cart inorder to give a new reference to item
     remake(scene, x, y) {
       let remade = new Item(scene, x, y, this.texture, this.title, this.weight, this.cost).setDepth(1).setScale(this.scale);
+      remade.sizeX = this.sizeX;
+      remade.sizeY = this.sizeY;
+      remade.setSize(remade.sizeX, remade.sizeY);
       return remade;
     }
 }

@@ -65,8 +65,10 @@ class StoreAisleCereal extends Phaser.Scene {
 
         //item creation (repeat for each item)
         let items = []
-        this.box = new Item(this, game.config.width/2 + 100, collider.y - collider.height - 30, "cerealBox", "Cereal", 2.0, 4.53).setDepth(1).setScale(0.25);
+        this.box = new Item(this, game.config.width/2 + 100, collider.y - collider.height - 30, "cerealBox", "Cereal", 2.0, 3.57).setDepth(1).setScale(0.25);
         this.box.body.setSize(this.box.width - 150, this.box.height - 100, true);
+        this.box.sizeX = this.box.width - 150;
+        this.box.sizeY = this.box.height - 100;
         this.input.setDraggable(this.box);
         items.push(this.box);
 

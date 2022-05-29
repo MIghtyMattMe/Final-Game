@@ -65,8 +65,10 @@ class StoreAisleChips extends Phaser.Scene {
 
         //item creation (repeat for each item)
         let items = []
-        this.chips = new Item(this, game.config.width/2 - 100, collider.y - collider.height - 25, "chips", "Chips", 1.0, 4.53).setDepth(1).setScale(0.25);
+        this.chips = new Item(this, game.config.width/2 - 100, collider.y - collider.height - 25, "chips", "Chips", 2.0, 1.20).setDepth(1).setScale(0.25);
         this.chips.body.setSize(this.chips.width - 160, this.chips.height - 110, true);
+        this.chips.sizeX = this.chips.width - 160;
+        this.chips.sizeY = this.chips.height - 110;
         this.input.setDraggable(this.chips);
         items.push(this.chips);
 
