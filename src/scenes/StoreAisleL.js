@@ -37,9 +37,11 @@ class StoreAisleL extends Phaser.Scene {
             this.scene.start("baggingScene");
         });
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleChipsScene";
             this.scene.start("storeAisleChipsScene");
         });
         this.rightButton2 = this.add.sprite(game.config.width/2 + 150, 70, "button_right").setOrigin(0,0).setScale(.60).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleCerealScene";
             this.scene.start("storeAisleCerealScene");
         });
         this.tweens.add({

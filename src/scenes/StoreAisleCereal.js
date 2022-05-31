@@ -46,9 +46,11 @@ class StoreAisleCereal extends Phaser.Scene {
 
         //hidden arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleLScene";
             this.scene.start("storeAisleLScene");
         });                  
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");
         });
         this.tweens.add({

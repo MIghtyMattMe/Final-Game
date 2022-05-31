@@ -48,6 +48,7 @@ class StoreAisleDairy extends Phaser.Scene {
 
         //arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
         this.tweens.add({
             targets:this.leftButton,
