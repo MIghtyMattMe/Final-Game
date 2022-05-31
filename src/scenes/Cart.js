@@ -6,19 +6,21 @@ class Cart extends Phaser.Scene {
     preload() {
         this.load.image("side", "./assets/cart/sides.png");
         this.load.image("back_button", "./assets/cart/back_button.png");
+        this.load.image("cart_bg", "./assets/cart/cart_bg.png");
     }
 
     create() {
-        //create the back button
+        //create the back button & background
+        this.bg = this.add.tileSprite(0,0, 980, 720, "cart_bg").setOrigin(0,0);
         let back_butt = this.add.sprite(500, 30, "back_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start(curScene);
         });
 
         //create cart 'box'/outline
         let ground = this.physics.add.group({immovable: true, allowGravity: false});
-        let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 10, "side").setScale(0.9, 1);
-        let grd2 = this.physics.add.sprite(game.config.width/2 - borderPadding * 28, game.config.height - borderPadding * 10, "side").setAngle(90).setSize(grd1.height, grd1.width);
-        let grd3 = this.physics.add.sprite(game.config.width/2 + borderPadding * 28, game.config.height - borderPadding * 10, "side").setAngle(90).setSize(grd1.height, grd1.width);
+        let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 8.75, "side").setScale(0.9, 1).setAlpha(0);
+        let grd2 = this.physics.add.sprite(game.config.width/2 - borderPadding * 28 - 5, game.config.height - borderPadding * 9, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
+        let grd3 = this.physics.add.sprite(game.config.width/2 + borderPadding * 28, game.config.height - borderPadding * 9, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
         ground.add(grd1);
         ground.add(grd2);
         ground.add(grd3);
