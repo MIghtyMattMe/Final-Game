@@ -42,14 +42,15 @@ class Menu extends Phaser.Scene {
         }); 
 
         this.input.on('pointerover', function (event, gameObjects) {
-
-            gameObjects[0].setTint(0xff0000);
+            console.log("pointer over");
+            console.log(gameObjects[0]);
+            gameObjects[0].setAlpha(0.8);
     
         });
     
         this.input.on('pointerout', function (event, gameObjects) {
-    
-            gameObjects[0].clearTint();
+            console.log("pointer out");
+            gameObjects[0].clearAlpha();
     
         });
 
@@ -86,10 +87,5 @@ class Menu extends Phaser.Scene {
 
     update() {
         this.clouds.tilePositionX += 0.5;
-        /*if(pointer.isDown){
-            menu_music.stop();
-            this.game_music.play();
-            this.scene.start('storeScene');
-        }*/
     }
 }
