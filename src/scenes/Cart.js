@@ -29,7 +29,7 @@ class Cart extends Phaser.Scene {
         this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityY: 400});
         if (new_cart_item != null) {
             let why = new_cart_item.remake(this, 400, 100);
-            why.setScale(why.scaleX * 1.5);
+            why.setScale(why.scaleX * 2);
             why.setAlpha(0);
             new_cart_item = null;
             cart.push(why);

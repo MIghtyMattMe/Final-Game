@@ -5,9 +5,12 @@ class Bagging extends Phaser.Scene {
 
     preload() {
         this.load.image("side", "./assets/cart/sides.png");
+        this.load.image("checkout_bg", "./assets/checkout/checkout2.png");
     }
 
     create() {
+        //breate background
+        this.bg = this.add.tileSprite(0,0, 980, 720, "checkout_bg").setOrigin(0,0);
         //create bag outline and belt
         let ground = this.physics.add.group({immovable: true, allowGravity: false});
         let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 10, "side").setScale(100, 1);
