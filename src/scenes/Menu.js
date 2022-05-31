@@ -23,6 +23,8 @@ class Menu extends Phaser.Scene {
 
         //buttons
         this.startButton = this.add.sprite(game.config.width - 270, 60, "button_start").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            menu_music.stop();
+            this.game_music.play();
             curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
         this.helpButton = this.add.sprite(game.config.width - 270, 160, "button_help").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
