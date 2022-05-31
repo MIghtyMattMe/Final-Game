@@ -22,15 +22,15 @@ class Menu extends Phaser.Scene {
         this.mart = this.add.tileSprite(0,0, 980, 720, "mart").setOrigin(0,0);
 
         //buttons
-        this.startButton = this.add.sprite(game.config.width - 270, 60, "button_start").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+        this.startButton = this.add.sprite(game.config.width - 270, 60, "button_start").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             menu_music.stop();
             this.game_music.play();
             curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
-        this.helpButton = this.add.sprite(game.config.width - 270, 160, "button_help").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+        this.helpButton = this.add.sprite(game.config.width - 270, 160, "button_help").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
-        this.creditsButton = this.add.sprite(game.config.width - 270, 260, "button_credits").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+        this.creditsButton = this.add.sprite(game.config.width - 270, 260, "button_credits").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");});
         this.tweens.add({
@@ -44,13 +44,14 @@ class Menu extends Phaser.Scene {
         this.input.on('pointerover', function (event, gameObjects) {
             console.log("pointer over");
             console.log(gameObjects[0]);
-            gameObjects[0].setAlpha(0.8);
+            gameObjects[0].clearAlpha();
     
         });
     
         this.input.on('pointerout', function (event, gameObjects) {
             console.log("pointer out");
-            gameObjects[0].clearAlpha();
+            
+            gameObjects[0].setAlpha(0.8);
     
         });
 
