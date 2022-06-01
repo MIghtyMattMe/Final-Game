@@ -42,15 +42,11 @@ class Menu extends Phaser.Scene {
         }); 
 
         this.input.on('pointerover', function (event, gameObjects) {
-            console.log("pointer over");
-            console.log(gameObjects[0]);
             gameObjects[0].clearAlpha();
     
         });
     
         this.input.on('pointerout', function (event, gameObjects) {
-            console.log("pointer out");
-            
             gameObjects[0].setAlpha(0.8);
     
         });

@@ -5,10 +5,12 @@ class StoreAisleDairy extends Phaser.Scene {
         super("storeAisleDairyScene");
 
         this.i = 0;
+        this.l = 0;
         this.shopDrag = false;
     }
 
     preload() {
+        //bg and items
         this.load.image("storeAisleDairybg", "./assets/shop/bgs/aisle_dairy.png");
         this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("egg", "./assets/shop/items/egg.png");
@@ -16,6 +18,7 @@ class StoreAisleDairy extends Phaser.Scene {
         this.load.image("List", "./assets/shop/List.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
+        this.load.image("box", "./assets/shop/test_box.png");
 
         //temp buttons for navigation
         this.load.image("cart_button", "./assets/shop/cart_button.png");
@@ -24,6 +27,9 @@ class StoreAisleDairy extends Phaser.Scene {
         //arrows
         this.load.image("button_left", "./assets/shop/bgs/button_left.png");
         this.load.image("button_right", "./assets/shop/bgs/button_right.png");
+
+        //player atlas
+        this.load.atlas("player", "./assets/shop/playerAtlas.png", "./assets/shop/player.json");
         
 
     }
@@ -39,17 +45,22 @@ class StoreAisleDairy extends Phaser.Scene {
         let collider = this.physics.add.sprite(0, 265, "collider").setOrigin(0,0);
         collider.body.allowGravity = false;
         collider.setImmovable();
-        let ground = this.physics.add.sprite(0, game.config.height - 50, "collider").setOrigin(0,0);
+        let ground = this.physics.add.sprite(0, game.config.height -  50, "collider").setOrigin(0,0);
         ground.body.allowGravity = false;
         ground.setImmovable();
+        this.cart = this.physics.add.sprite(game.config.width/2 + 250, game.config.height-150, "box").setSize(200, 150);
+        
 
         //background
         this.bg = this.add.tileSprite(0,0, 980, 720, "storeAisleDairybg").setOrigin(0,0);
 
         //arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+            player.anims.play("walking", true);
+            player.setVelocityX(-80);
             curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            //this.scene.start("storeAisleRScene");
+        });
         this.tweens.add({
             targets:this.leftButton,
             x: '-=10',
@@ -61,12 +72,14 @@ class StoreAisleDairy extends Phaser.Scene {
 
 
         //player
-        player = new Player(this, game.config.width/2 + 200, game.config.height-(180*.80), "cart").setDepth(1).setScale(.7);
+        this.anims.create({key: "walking", frames: this.anims.generateFrameNames("player", {prefix: "walking", end: 1, zeroPad:3}), frameRate:4, repeat:-1});
+        player = new Player(this, game.config.width/2 + 150, game.config.height-(180*1.3), "player").setDepth(1).setScale(.45);
+        player.body.allowGravity = false;
 
         //item creation (repeat for each item)
         let items = []
         this.milk = new Item(this, game.config.width/2, collider.y - collider.height - 20, "milk", "Milk", 2.0, 6.53).setDepth(1).setScale(.2);
-        this.milk.setSize(this.milk.width - 300, this.milk.height - 120, true);
+        this.milk.setSize(this.milk.width - 300, this.milk.height - 130, true);
         this.milk.sizeX = this.milk.width - 300;
         this.milk.sizeY = this.milk.height - 120;
         this.input.setDraggable(this.milk);
@@ -90,8 +103,8 @@ class StoreAisleDairy extends Phaser.Scene {
             items[j].store_collider = this.physics.add.collider(items[j], collider);
         }
         this.physics.add.collider(items, ground);
-        //this.physics.add.collider(items, items);
-        this.physics.add.overlap(items, player, this.incrementI, null, this);
+        this.physics.add.collider(this.leftButton, player, ()=>{ this.scene.start("storeAisleRScene"); }, null, this);
+        this.physics.add.overlap(items, this.cart, this.increment, null, this);
 
 
         //drag start and end properties
@@ -154,7 +167,7 @@ class StoreAisleDairy extends Phaser.Scene {
         }   
     }
     
-    incrementI(){
-        this.i++;
+    increment(i){
+        this.i++
     }
 }
