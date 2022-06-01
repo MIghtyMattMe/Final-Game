@@ -5,6 +5,7 @@ class StoreAisleDairy extends Phaser.Scene {
         super("storeAisleDairyScene");
 
         this.i = 0;
+        this.num = 0;
         this.shopDrag = false;
     }
 
@@ -14,7 +15,13 @@ class StoreAisleDairy extends Phaser.Scene {
         this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("egg", "./assets/shop/items/egg.png");
         this.load.image("milk", "./assets/shop/items/milk.png");
-        this.load.image("List", "./assets/shop/List.png");
+        //list assets
+        this.load.image("List", "./assets/shop/list/list.png");
+        this.load.image("list_milk", "./assets/shop/list/list_milk.png");
+        this.load.image("list_eggs", "./assets/shop/list/list_eggs.png");
+        this.load.image("list_chips", "./assets/shop/list/list_chips.png");
+        this.load.image("list_cereal", "./assets/shop/list/list_cereal.png");
+
 
         this.load.image("collider", "./assets/shop/collider.png");
         this.load.image("box", "./assets/shop/test_box.png");
@@ -144,17 +151,22 @@ class StoreAisleDairy extends Phaser.Scene {
 
         //List creation and cross out
         let list_obj = this.add.sprite(30, 750, "List").setOrigin(0, 0).setDepth(2);
+        this.listMilk = this.add.sprite(30, 750, "list_milk").setOrigin(0,0).setDepth(2).setAlpha(0);
+        this.listEgg = this.add.sprite(30, 750, "list_eggs").setOrigin(0,0).setDepth(2).setAlpha(0);
+        this.listCereal = this.add.sprite(30, 750, "list_cereal").setOrigin(0,0).setDepth(3).setAlpha(0);
+        this.listChips = this.add.sprite(30, 750, "list_chips").setOrigin(0,0).setDepth(4).setAlpha(0);
         let list_butt = this.add.sprite(600, 30, "list_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             if (list_obj.y < 740) {
                 this.tweens.add({
-                    targets: list_obj,
+                    targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.Chips],
                     y: 750,
                     ease: 'Power1',
                     duration: 1500
                 });
+                
             } else {
                 this.tweens.add({
-                    targets: list_obj,
+                    targets: [list_obj, this.listMilk],
                     y: game.config.height - list_obj.height - 50,
                     ease: 'Power1',
                     duration: 1500
@@ -179,6 +191,7 @@ class StoreAisleDairy extends Phaser.Scene {
         
         if(this.i >= 15){
             this.i=0;
+            console.log(cart[0]);
             new_cart_item = globalThis.gameObject;
             this.scene.start('cartScene');
         }   
@@ -190,6 +203,24 @@ class StoreAisleDairy extends Phaser.Scene {
             this.scene.start("storeAisleRScene");
             //console.log("boundary");
         }
+
+        
+            console.log(list[1]);
+            if(list[0] == "milk"){
+                this.listMilk.clearAlpha();
+            }
+            if(list[0] == "egg"){
+                //console.log("true egg");
+                this.listEgg.clearAlpha();
+            }
+            if(list[0] == "chips"){
+                this.listChips.clearAlpha();
+            }
+            if(list[0] == "cereal"){
+                this.listCereal.clearAlpha();
+            }
+
+        
     }
     
     increment(i){

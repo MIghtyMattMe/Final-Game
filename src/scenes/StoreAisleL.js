@@ -9,7 +9,12 @@ class StoreAisleL extends Phaser.Scene {
     preload() {
         this.load.image("aisleLbg", "./assets/shop/bgs/aisle_left.png");
         
-        this.load.image("List", "./assets/shop/List.png");
+        //list assets
+        this.load.image("List", "./assets/shop/list/list.png");
+        this.load.image("list_milk", "./assets/shop/list/list_milk.png");
+        this.load.image("list_eggs", "./assets/shop/list/list_eggs.png");
+        this.load.image("list_chips", "./assets/shop/list/list_chips.png");
+        this.load.image("list_cereal", "./assets/shop/list/list_cereal.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
 

@@ -43,4 +43,7 @@ let new_cart_item;
 let menu_music;
 //current scene
 let curScene;
+//list group
+let list = [];
+//let listEgg, listMilk, listChips, listCereal;
 
