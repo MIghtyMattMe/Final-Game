@@ -5,7 +5,6 @@ class StoreAisleDairy extends Phaser.Scene {
         super("storeAisleDairyScene");
 
         this.i = 0;
-        this.l = 0;
         this.shopDrag = false;
     }
 
@@ -57,9 +56,7 @@ class StoreAisleDairy extends Phaser.Scene {
         //arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(-80);
-            curScene = "storeAisleRScene";
-            //this.scene.start("storeAisleRScene");
+            player.setVelocityX(-100);
         });
         this.tweens.add({
             targets:this.leftButton,
@@ -165,6 +162,14 @@ class StoreAisleDairy extends Phaser.Scene {
             new_cart_item = globalThis.gameObject;
             this.scene.start('cartScene');
         }   
+
+        //console.log(player.x);
+        //change scenes when player hits sides
+        if(player.x <=200){
+            curScene = "storeAisleRScene";
+            this.scene.start("storeAisleRScene");
+            //console.log("boundary");
+        }
     }
     
     increment(i){
