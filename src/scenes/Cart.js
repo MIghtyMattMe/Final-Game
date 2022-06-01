@@ -1,6 +1,11 @@
 class Cart extends Phaser.Scene {
     constructor() {
         super("cartScene");
+
+        this.milk = 0;
+        this.eggs = 0;
+        this.chips = 0;
+        this.cereal = 0;
     }
 
     preload() {
@@ -232,6 +237,24 @@ class Cart extends Phaser.Scene {
                 } else {
                     cart[i].setVelocityX(0);
                 }
+            }
+        }
+        if(cart[0] != null){
+            if(cart[0].title == "Milk" && this.milk == 0){
+                this.milk = 1;
+                list.push("milk");
+            }
+            else if(cart[0].title == "Egg" && this.eggs == 0){
+                this.eggs = 1;
+                list.push("egg");
+            }
+            else if(cart[0].title == "Chips" && this.chips == 0){
+                this.chips = 1;
+                list.push("chips");
+            }
+            else if(cart[0].title == "Cereal" && this.cereal == 0){
+                this.cereal = 1;
+                list.push("cereal");
             }
         }
     }
