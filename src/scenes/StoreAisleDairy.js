@@ -57,6 +57,7 @@ class StoreAisleDairy extends Phaser.Scene {
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
             player.setVelocityX(-100);
+            player.flipX = true;
         });
         this.tweens.add({
             targets:this.leftButton,

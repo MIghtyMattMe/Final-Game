@@ -7,9 +7,11 @@ class Cart extends Phaser.Scene {
         this.load.image("side", "./assets/cart/sides.png");
         this.load.image("back_button", "./assets/cart/back_button.png");
         this.load.image("cart_bg", "./assets/cart/cart_bg.png");
+        this.load.audio('crack', './assets/Music/egg_crack.mp3');
     }
 
     create() {
+        this.crack = this.sound.add('crack', {volume: 1});
         //create the back button & background
         this.bg = this.add.tileSprite(0,0, 980, 720, "cart_bg").setOrigin(0,0);
         let back_butt = this.add.sprite(500, 30, "back_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
@@ -51,8 +53,14 @@ class Cart extends Phaser.Scene {
             if (!globalThis.dragging) {
                 if (obj1.y > obj2.y && obj1.weight < obj2.weight && Math.abs(obj1.x-obj2.x) < (obj1.sizeX * obj1.scaleX)) {
                     obj1.exist = false;
+                    if (!this.crack.isPlaying) {
+                        this.crack.play();
+                    }
                 } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < (obj2.sizeX * obj2.scaleX)) {
                     obj2.exist = false;
+                    if (!this.crack.isPlaying) {
+                        this.crack.play();
+                    }
                 }
             }
         });
@@ -96,22 +104,6 @@ class Cart extends Phaser.Scene {
                 if (cart[i].y > (game.config.height - borderPadding * 10)) { //ground's y
                     cart[i].y = game.config.height - borderPadding * 10 - cart[i].height;
                 }
-                //stops bounce from setting things ontop on another
-                /*if (cart[i].body.touching.down) {
-                    cart[i].setGravityY(0);
-                    cart[i].setVelocityY(0);
-                } else {
-                    cart[i].setGravityY(400);
-                }*/
-                /*if ((cart[i].body.velocity.y > -10) && (cart[i].body.velocity.y < 10)) {
-                    cart[i].setBounceY(0);
-                    //cart[i].body.velocity.y = 0;
-                    if (cart[i].touching) {
-                        cart[i].setGravityY(0);
-                    }
-                } else {
-                    cart[i].setBounceY(0.5);
-                }*/
                 //brings x velocity to 0
                 if (cart[i].body.velocity.x > 1){
                     cart[i].setVelocityX(cart[i].body.velocity.x - 1);

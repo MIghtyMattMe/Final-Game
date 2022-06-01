@@ -5,8 +5,8 @@ class End extends Phaser.Scene {
 
     preload() {
         this.load.image("menu_bg", "./assets/menu/menu_bg.png");
-        this.load.audio('menu_music', './assets/Music/Menu_Music.wav');
-        this.load.audio('game_music', './assets/Music/Game_Music.wav');
+        this.load.audio('menu_music', './assets/Music/Menu_Music.mp3');
+        this.load.audio('game_music', './assets/Music/Game_Music.mp3');
     }
 
     create() {
