@@ -8,6 +8,8 @@ class Cart extends Phaser.Scene {
         this.load.image("back_button", "./assets/cart/back_button.png");
         this.load.image("cart_bg", "./assets/cart/cart_bg.png");
         this.load.audio('crack', './assets/Music/egg_crack.mp3');
+
+        this.load.spritesheet('egg_parts', "./assets/shop/items/egg_parts.png", { frameWidth: 100, frameHeight: 100 });
     }
 
     create() {
@@ -56,11 +58,129 @@ class Cart extends Phaser.Scene {
                     if (!this.crack.isPlaying) {
                         this.crack.play();
                     }
+                    let egg_exp = this.add.particles('egg_parts');
+                    egg_exp.createEmitter({
+                        frame: 0,
+                        x: obj1.x,
+                        y: obj1.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 1,
+                        x: obj1.x,
+                        y: obj1.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 2,
+                        x: obj1.x,
+                        y: obj1.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 3,
+                        x: obj1.x,
+                        y: obj1.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 4,
+                        x: obj1.x,
+                        y: obj1.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    this.time.delayedCall(500, () => {
+                        egg_exp.destroy();
+                    }, null, this);
                 } else if (obj1.y < obj2.y && obj1.weight > obj2.weight && Math.abs(obj1.x-obj2.x) < (obj2.sizeX * obj2.scaleX)) {
                     obj2.exist = false;
                     if (!this.crack.isPlaying) {
                         this.crack.play();
                     }
+                    let egg_exp = this.add.particles('egg_parts');
+                    egg_exp.createEmitter({
+                        frame: 0,
+                        x: obj2.x,
+                        y: obj2.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 1,
+                        x: obj2.x,
+                        y: obj2.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 2,
+                        x: obj2.x,
+                        y: obj2.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 3,
+                        x: obj2.x,
+                        y: obj2.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    egg_exp.createEmitter({
+                        frame: 4,
+                        x: obj2.x,
+                        y: obj2.y,
+                        speed: 100,
+                        frequency: 1,
+                        lifespan: 500,
+                        maxParticles: 1,
+                        scaleX: 0.75,
+                        scaleY: 0.75
+                    });
+                    this.time.delayedCall(500, () => {
+                        egg_exp.destroy();
+                    }, null, this);
                 }
             }
         });
