@@ -80,6 +80,13 @@ class StoreAisleChips extends Phaser.Scene {
         this.chips.sizeY = this.chips.height - 110;
         this.input.setDraggable(this.chips);
         items.push(this.chips);
+        this.tweens.add({
+            targets: this.chips,
+            scale: 0.235,
+            yoyo: true,
+            ease: 'Linear',
+            repeat: -1
+        });
 
         //declaring for drag
         this.input.dragDistanceThreshold = 0;

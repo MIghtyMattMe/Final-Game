@@ -78,6 +78,13 @@ class StoreAisleCereal extends Phaser.Scene {
         this.box.sizeY = this.box.height - 100;
         this.input.setDraggable(this.box);
         items.push(this.box);
+        this.tweens.add({
+            targets: this.box,
+            scale: 0.235,
+            yoyo: true,
+            ease: 'Linear',
+            repeat: -1
+        });
 
         //declaring for drag
         this.input.dragDistanceThreshold = 0;
