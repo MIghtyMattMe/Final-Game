@@ -76,7 +76,7 @@ class StoreAisleDairy extends Phaser.Scene {
         //item creation (repeat for each item)
         let items = []
         this.milk = new Item(this, game.config.width/2, collider.y - collider.height - 20, "milk", "Milk", 2.0, 6.53).setDepth(1).setScale(.2);
-        this.milk.setSize(this.milk.width - 300, this.milk.height - 130, true);
+        this.milk.setSize(this.milk.width - 300, this.milk.height - 150, true);
         this.milk.sizeX = this.milk.width - 300;
         this.milk.sizeY = this.milk.height - 120;
         this.input.setDraggable(this.milk);
@@ -88,6 +88,25 @@ class StoreAisleDairy extends Phaser.Scene {
         this.egg.sizeY = this.egg.height - 70;
         this.input.setDraggable(this.egg);
         items.push(this.egg);
+
+        //item tweens
+        this.tweens.add({
+            targets: this.egg,
+            scale: 0.115,
+            yoyo: true,
+            ease: 'Linear',
+            repeat: -1
+        });
+        this.tweens.add({
+            targets: this.milk,
+            scaleX: 0.22,
+            scaleY: 0.21,
+            yoyo: true,
+            ease: 'Linear',
+            repeat: -1
+        });
+
+
 
         //declaring for drag
         this.input.dragDistanceThreshold = 0;
