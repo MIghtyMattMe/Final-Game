@@ -6,24 +6,29 @@ class Bagging extends Phaser.Scene {
     preload() {
         this.load.image("side", "./assets/cart/sides.png");
         this.load.image("checkout_bg", "./assets/checkout/checkout2.png");
+        this.load.image("checkout_bag", "./assets/checkout/bag.png");
+        this.load.audio('crunch', './assets/Music/bag_crunch.mp3');
     }
 
     create() {
-        //breate background
+        //create bag sound effect
+        this.crunch = this.sound.add('crunch', {volume: 1});
+        //create background
         this.bg = this.add.tileSprite(0,0, 980, 720, "checkout_bg").setOrigin(0,0);
+        this.bag = this.add.sprite(game.config.width/2 + borderPadding * 5, 115, "checkout_bag").setOrigin(0,0).setScale(4.5,3.75);
         //create bag outline and belt
         let ground = this.physics.add.group({immovable: true, allowGravity: false});
-        let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 10, "side").setScale(100, 1);
-        let grd2 = this.physics.add.sprite(game.config.width/2 + borderPadding * 6, game.config.height - borderPadding * 3, "side").setAngle(90).setSize(grd1.height, grd1.width);
-        let grd3 = this.physics.add.sprite(game.config.width/2 + borderPadding * 28, game.config.height - borderPadding * 3, "side").setAngle(90).setSize(grd1.height, grd1.width);
+        let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 14.5, "side").setScale(100, 1).setAlpha(0);
+        let grd2 = this.physics.add.sprite(game.config.width/2 + borderPadding * 6, game.config.height - borderPadding * 5, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
+        let grd3 = this.physics.add.sprite(game.config.width/2 + borderPadding * 28, game.config.height - borderPadding * 5, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
         ground.add(grd1);
         ground.add(grd2);
         ground.add(grd3);
 
-        this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityX: 250, gravityY: 400});
+        this.groceries = this.physics.add.group({bounceX: 0.5, bounceY: 0.5, gravityX: 0, gravityY: 400});
         
         for (let i = 0; i < cart.length; i++) {
-            cart[i] = cart[i].remake(this, -(200*(i + 1)), grd1.y - cart[i].height - 10);
+            cart[i] = cart[i].remake(this, -(200*(i)) - 100, grd1.y - 200 - 10);
             this.groceries.add(cart[i]);
         }
         this.input.setDraggable(cart);
@@ -68,7 +73,7 @@ class Bagging extends Phaser.Scene {
             globalThis.gameObject.setVelocityX((pointer.x - globalThis.gameObject.x) * 8);
             globalThis.gameObject.setVelocityY((pointer.y - globalThis.gameObject.y) * 8);
         }
-        let gameOver = true;
+        globalThis.gameOver = true;
         for (let i = 0; i < cart.length; i++) {
             cart[i].update();
             //check if the item was deleted first
@@ -79,8 +84,10 @@ class Bagging extends Phaser.Scene {
                 //check if off conveyor belt or off screen
                 if (cart[i].x > 300){
                     cart[i].setGravityX(0);
+                    cart[i].body.bounce.set(0.5);
                 } else {
-                    cart[i].setGravityX(250);
+                    cart[i].setGravityX(150);
+                    cart[i].body.bounce.set(0);
                 }
                 if (cart[i].x > (game.config.width + cart[i].width)) {
                     cart[i].x = 400;
@@ -107,7 +114,7 @@ class Bagging extends Phaser.Scene {
                 //if the velocity of both x and y is almost 0
                 //if we are not dragging it
                 //if it wasn't just dropped
-                if((cart[i].y < 150) && (cart[i].x < game.config.width/2 + borderPadding * 24) && (cart[i].x > game.config.width/2 + borderPadding * 10) &&
+                if((cart[i].y < 220) && (cart[i].y > 0) && (cart[i].x < game.config.width/2 + borderPadding * 30) && (cart[i].x > game.config.width/2 + borderPadding * 6) &&
                 (cart[i].body.velocity.x < 10) && (cart[i].body.velocity.y < 10) && 
                 (cart[i].body.velocity.x > -10) && (cart[i].body.velocity.y > -10) && 
                 (!globalThis.dragging) &&
@@ -120,21 +127,51 @@ class Bagging extends Phaser.Scene {
                             cart[j].y += 1000;
                         }
                     }
+                    this.bag_tween();
                 }
 
                 //check if everything was bagged
                 //(if something is outside bagging area or if we are dragging no game over)
-                if ((cart[i].x > game.config.width/2 + borderPadding * 24) || 
-                    (cart[i].x < game.config.width/2 + borderPadding * 10) || 
+                if ((cart[i].x > game.config.width/2 + borderPadding * 32) || 
+                    (cart[i].x < game.config.width/2 + borderPadding * 5) || 
                     globalThis.dragging) {
-                    gameOver = false;
+                        globalThis.gameOver = false;
                 }
             }
         }
 
-        //if everything was bagged go back to menu and clear cart
-        if (gameOver) {
-            this.scene.start('endScene');
+        if (globalThis.gameOver) {
+            for (let j = 0; j < cart.length; j++) {
+                if (cart[j].x > game.config.width/2 + borderPadding * 6) { //if past the left wall of the bag
+                    cart[j].setAlpha(0);
+                    cart[j].y += 1000;
+                }
+            }
+            this.bag_tween();
         }
+    }
+
+    //the tween for when the bag moves off screen
+    bag_tween() {
+        if (!this.crunch.isPlaying) {
+            this.crunch.play();
+        }
+        this.tweens.add({
+            targets: this.bag,
+            y: -400,
+            ease: 'Power1',
+            duration: 1000
+        });
+        this.clock = this.time.delayedCall(1000, () => {
+            if (globalThis.gameOver) {
+                this.scene.start('endScene');
+            }
+            this.tweens.add({
+                targets: this.bag,
+                y: 115,
+                ease: 'Power1',
+                duration: 1000
+            });
+        }, null, this);
     }
 }
