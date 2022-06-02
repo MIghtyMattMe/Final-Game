@@ -35,8 +35,9 @@ class End extends Phaser.Scene {
         player.body.allowGravity = false;
         player.anims.play("walking", true);
 
-        let txt = this.add.text(120, 140, "Left click to go back to menu");
-        let txt2 = this.add.text(120, 200, "Total cost: $" + (Math.floor(cart_cost*100)/100).toFixed(2));
+        let txt = this.add.text(490, 140, "Click the screen to go back to the menu", {fontSize: '36px', strokeThickness: 1}).setOrigin(0.5);
+        let txt2 = this.add.text(490, 200, "You Spent: $" + (Math.floor(cart_cost*100)/100).toFixed(2), {fontSize: '36px', strokeThickness: 1}).setOrigin(0.5);
+        
         this.end = false;
         this.ending();
     }
