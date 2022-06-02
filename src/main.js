@@ -45,5 +45,9 @@ let menu_music;
 let curScene;
 //list group
 let list = [];
-//let listEgg, listMilk, listChips, listCereal;
+let listEgg, listMilk, listChips, listCereal;
+let alphaNumM = 0;
+let alphaNumE = 0;
+let alphaNumCe = 0;
+let alphaNumCh = 0;
 

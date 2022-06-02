@@ -4,6 +4,7 @@ class StoreAisleR extends Phaser.Scene {
     constructor() {
         super("storeAisleRScene");
 
+        this.num = 0;
     }
 
     preload() {
@@ -55,19 +56,43 @@ class StoreAisleR extends Phaser.Scene {
             repeat:-1
         });
 
+
+        console.log("alnum: " + alphaNumM);
         //List creation and cross out
         let list_obj = this.add.sprite(30, 750, "List").setOrigin(0, 0).setDepth(2);
+        this.listMilk = this.add.sprite(30, 750, "list_milk").setOrigin(0,0).setDepth(2).setAlpha(alphaNumM);
+        this.listEgg = this.add.sprite(30, 750, "list_eggs").setOrigin(0,0).setDepth(2).setAlpha(alphaNumE);
+        this.listCereal = this.add.sprite(30, 750, "list_cereal").setOrigin(0,0).setDepth(3).setAlpha(alphaNumCe);
+        this.listChips = this.add.sprite(30, 750, "list_chips").setOrigin(0,0).setDepth(4).setAlpha(alphaNumCh);
         let list_butt = this.add.sprite(600, 30, "list_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             if (list_obj.y < 740) {
                 this.tweens.add({
-                    targets: list_obj,
+                    targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.listChips],
                     y: 750,
                     ease: 'Power1',
                     duration: 1500
                 });
             } else {
+                for(this.num; this.num <= list.length-1; this.num++){
+                    if(list[this.num] == "milk"){
+                        this.listMilk.setAlpha(alphaNumM);
+                        alphaNumM = 1;
+                    }
+                    else if(list[this.num] == "egg"){
+                        this.listEgg.clearAlpha();
+                        alphaNumE = 1;
+                    }
+                    else if(list[this.num] == "chips"){
+                        this.listChips.clearAlpha();
+                        alphaNumCh = 1;
+                    }
+                    else if(list[this.num] == "cereal"){
+                        this.listCereal.clearAlpha();
+                        alphaNumCe = 1;
+                    }
+                }
                 this.tweens.add({
-                    targets: list_obj,
+                    targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.listChips],
                     y: game.config.height - list_obj.height - 50,
                     ease: 'Power1',
                     duration: 1500
