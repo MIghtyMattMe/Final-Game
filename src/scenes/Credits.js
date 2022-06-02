@@ -17,7 +17,7 @@ class Credits extends Phaser.Scene {
         this.mart = this.add.tileSprite(0,0, 980, 720, "mart").setOrigin(0,0);
         this.text_bg = this.add.sprite(110, 50, "back").setOrigin(0).setAlpha(0.8);
 
-        this.add.text(160, 100, "This game was made as a part of \nUC Santa Cruz classes ARTG 120 \nand CMPM 120.\n\nArtists:\n\tZoey Laytart\n\tRoman Collazo\n\tMichelle Kim\n\nProgrammers:\n\tMatthew Meacham\n\tMichelle Kim").setScale(2.2);
+        this.add.text(160, 100, "This game was made as a part of \nUC Santa Cruz classes ARTG 120 \nand CMPM 120.\n\nArtists:\n\tZoey Laytart\n\tRoman Collazo\n\tMichelle Kim\n\nProgrammers:\n\tMatthew Meacham\n\tMichelle Kim", {fontSize: '36px', strokeThickness: 1});
 
         let back_butt = this.add.sprite(65, 25, "butt").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start("menuScene");
