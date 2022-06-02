@@ -29,10 +29,10 @@ class Menu extends Phaser.Scene {
             this.scene.start("storeAisleRScene");});
         this.helpButton = this.add.sprite(game.config.width - 270, 160, "button_help").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            this.scene.start("helpScene");});
         this.creditsButton = this.add.sprite(game.config.width - 270, 260, "button_credits").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            this.scene.start("creditsScene");});
         this.tweens.add({
             targets:[this.startButton, this.helpButton, this.creditsButton],
             y: '-=10',

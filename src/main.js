@@ -22,7 +22,7 @@ let config = {
             fps: 60
         }
     },
-    scene: [Menu, Cart, Bagging, End, StoreAisleL, StoreAisleR, StoreAisleDairy, StoreAisleChips, StoreAisleCereal]
+    scene: [Menu, Cart, Bagging, End, StoreAisleL, StoreAisleR, StoreAisleDairy, StoreAisleChips, StoreAisleCereal, Credits, Help]
 }
 
 let game = new Phaser.Game(config);
