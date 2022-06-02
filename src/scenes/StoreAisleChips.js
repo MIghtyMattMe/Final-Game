@@ -59,12 +59,12 @@ class StoreAisleChips extends Phaser.Scene {
         //hidden arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(-100);
+            player.setVelocityX(-120);
             player.flipX = true;
         });                     
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(100);
+            player.setVelocityX(120);
             player.flipX = false;
         });
         this.tweens.add({
