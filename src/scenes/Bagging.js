@@ -21,7 +21,7 @@ class Bagging extends Phaser.Scene {
         //create bag outline and belt
         let ground = this.physics.add.group({immovable: true, allowGravity: false});
         let grd1 = this.physics.add.sprite(game.config.width/2, game.config.height - borderPadding * 14.5 + 50, "side").setScale(100, 1).setAlpha(0);
-        let grd2 = this.physics.add.sprite(game.config.width/2 + borderPadding * 6, game.config.height - borderPadding * 5 + 50, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
+        let grd2 = this.physics.add.sprite(game.config.width/2 + borderPadding * 6, game.config.height - borderPadding * 5 + 120, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
         let grd3 = this.physics.add.sprite(game.config.width/2 + borderPadding * 28, game.config.height - borderPadding * 5 + 50, "side").setAngle(90).setSize(grd1.height, grd1.width).setAlpha(0);
         ground.add(grd1);
         ground.add(grd2);

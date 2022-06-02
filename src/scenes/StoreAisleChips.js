@@ -40,7 +40,7 @@ class StoreAisleChips extends Phaser.Scene {
     create() {
         curScene = "storeAisleChipsScene";
         // cart button declaration 
-        let cart_butt = this.add.sprite(500, 30, "cart_button").setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let cart_butt = this.add.sprite(60, 20, "cart_button").setScale(0.2).setDepth(1).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
 
@@ -57,12 +57,12 @@ class StoreAisleChips extends Phaser.Scene {
         this.bg = this.add.tileSprite(0,0, 980, 720, "store_bg").setOrigin(0,0);
 
         //hidden arrow buttons
-        this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+        this.leftButton = this.add.sprite(-50, 280, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
             player.setVelocityX(-150);
             player.flipX = true;
         });                     
-        this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
+        this.rightButton = this.add.sprite(game.config.width - 140, 280, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
             player.setVelocityX(150);
             player.flipX = false;
@@ -135,7 +135,7 @@ class StoreAisleChips extends Phaser.Scene {
         this.listEgg = this.add.sprite(30, 750, "list_eggs").setOrigin(0,0).setDepth(2).setAlpha(alphaNumE);
         this.listCereal = this.add.sprite(30, 750, "list_cereal").setOrigin(0,0).setDepth(3).setAlpha(alphaNumCe);
         this.listChips = this.add.sprite(30, 750, "list_chips").setOrigin(0,0).setDepth(4).setAlpha(alphaNumCh);
-        let list_butt = this.add.sprite(600, 30, "list_button").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let list_butt = this.add.sprite(160, 20, "list_button").setScale(0.2).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             if (list_obj.y < 740) {
                 this.tweens.add({
                     targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.listChips],
