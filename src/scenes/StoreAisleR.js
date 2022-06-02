@@ -26,7 +26,6 @@ class StoreAisleR extends Phaser.Scene {
         //arrows
         this.load.image("button_left", "./assets/shop/bgs/button_left.png");
         this.load.image("button_right", "./assets/shop/bgs/button_right.png");
-
     }
 
     create() {
@@ -56,8 +55,6 @@ class StoreAisleR extends Phaser.Scene {
             repeat:-1
         });
 
-
-        console.log("alnum: " + alphaNumM);
         //List creation and cross out
         let list_obj = this.add.sprite(30, 750, "List").setOrigin(0, 0).setDepth(2);
         this.listMilk = this.add.sprite(30, 750, "list_milk").setOrigin(0,0).setDepth(2).setAlpha(alphaNumM);

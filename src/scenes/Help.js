@@ -8,6 +8,7 @@ class Help extends Phaser.Scene {
         this.load.image("clouds", "./assets/menu/clouds.png");
         this.load.image("mart", "./assets/menu/mart.png");
         this.load.image("back", "./assets/menu/text_bg.png");
+        this.load.image("hlp", "./assets/menu/help_bg.png");
         this.load.image("butt", "./assets/cart/back_button.png");
     }
 
@@ -15,9 +16,8 @@ class Help extends Phaser.Scene {
         this.bg = this.add.tileSprite(0,0, 980, 720, "menu_bg").setOrigin(0,0);
         this.clouds = this.add.tileSprite(0,0, 980, 720, "clouds").setOrigin(0,0);
         this.mart = this.add.tileSprite(0,0, 980, 720, "mart").setOrigin(0,0);
-        this.text_bg = this.add.sprite(110, 50, "back").setOrigin(0).setAlpha(0.8);
-
-        this.add.text(160, 100, "This game was made as a part of \nUC Santa Cruz classes ARTG 120 \nand CMPM 120.\n\nArtists:\n\tZoey Laytart\n\tRoman Collazo\n\tMichelle Kim\n\nProgrammers:\n\tMatthew Meacham\n\tMichelle Kim").setScale(2.2);
+        this.add.sprite(110, 50, "back").setOrigin(0).setAlpha(0.8);
+        this.add.sprite(110, 50, "hlp").setOrigin(0).setAlpha(0.8);
 
         let back_butt = this.add.sprite(65, 25, "butt").setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start("menuScene");

@@ -62,24 +62,9 @@ class Menu extends Phaser.Scene {
             menu_music.setLoop(true);
             menu_music.play();
         }
-        //menu_music.play();
 
         this.game_music = this.sound.add('game_music', {volume: 0.5});
         this.game_music.setLoop(true);
-
-        //temporary change between scenes & text
-        let keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        /*
-        keySPACE.on('down', (event) => {
-            menu_music.stop();
-            this.game_music.play();
-            curScene = "storeAisleRScene";
-            this.scene.start('storeAisleRScene');
-        });*/
-
-        //let txt = this.add.text(120, 140, "press Space to start game\nUse the mouse to shop for food!");
-
     }
 
     update() {
