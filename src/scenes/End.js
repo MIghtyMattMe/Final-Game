@@ -7,6 +7,9 @@ class End extends Phaser.Scene {
         this.load.image("menu_bg", "./assets/menu/menu_bg.png");
         this.load.audio('menu_music', './assets/Music/Menu_Music.mp3');
         this.load.audio('game_music', './assets/Music/Game_Music.mp3');
+
+        //player atlas
+        this.load.atlas("player", "./assets/shop/playerAtlas.png", "./assets/shop/player.json");
     }
 
     create() {
@@ -26,6 +29,11 @@ class End extends Phaser.Scene {
         for (let i = 0; i < cart.length; i++) {
             cart_cost += cart[i].cost;
         }
+
+        this.anims.create({key: "walking", frames: this.anims.generateFrameNames("player", {prefix: "walking", end: 1, zeroPad:3}), frameRate:4, repeat:-1});
+        player = new Player(this, game.config.width/2, game.config.height-(180*1.3), "player").setDepth(1).setScale(.45);
+        player.body.allowGravity = false;
+        player.anims.play("walking", true);
 
         let txt = this.add.text(120, 140, "Left click to go back to menu");
         let txt2 = this.add.text(120, 200, "Total cost: $" + (Math.floor(cart_cost*100)/100).toFixed(2));
