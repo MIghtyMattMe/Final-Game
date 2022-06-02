@@ -20,7 +20,6 @@ class StoreAisleCereal extends Phaser.Scene {
         this.load.image("list_cereal", "./assets/shop/list/list_cereal.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
-        this.load.image("box", "./assets/shop/test_box.png");
 
         //temp buttons for navigation
         this.load.image("cart_button", "./assets/shop/cart_button.png");

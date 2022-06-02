@@ -12,7 +12,6 @@ class StoreAisleDairy extends Phaser.Scene {
     preload() {
         //bg and items
         this.load.image("storeAisleDairybg", "./assets/shop/bgs/aisle_dairy.png");
-        this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("egg", "./assets/shop/items/egg.png");
         this.load.image("milk", "./assets/shop/items/milk.png");
         //list assets
@@ -24,7 +23,6 @@ class StoreAisleDairy extends Phaser.Scene {
 
 
         this.load.image("collider", "./assets/shop/collider.png");
-        this.load.image("box", "./assets/shop/test_box.png");
 
         //temp buttons for navigation
         this.load.image("cart_button", "./assets/shop/cart_button.png");

@@ -11,7 +11,6 @@ class StoreAisleChips extends Phaser.Scene {
 
     preload() {
         this.load.image("store_bg", "./assets/shop/bgs/aisle_chips.png");
-        this.load.image("cart", "./assets/shop/test_cart.png");
         this.load.image("chips", "./assets/shop/items/chips.png");
         
         //list assets
@@ -22,7 +21,6 @@ class StoreAisleChips extends Phaser.Scene {
         this.load.image("list_cereal", "./assets/shop/list/list_cereal.png");
 
         this.load.image("collider", "./assets/shop/collider.png");
-        this.load.image("box", "./assets/shop/test_box.png");
 
         //temp buttons for navigation
         this.load.image("cart_button", "./assets/shop/cart_button.png");
