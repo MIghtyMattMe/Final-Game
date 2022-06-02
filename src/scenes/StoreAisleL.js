@@ -77,12 +77,9 @@ class StoreAisleL extends Phaser.Scene {
                 });
             } else {
                 for(this.num; this.num <= list.length-1; this.num++){
-                    console.log(list[this.num]);
-                    //console.log("num: " + this.num);
                     if(list[this.num] == "milk"){
                         this.listMilk.clearAlpha();
                         alphaNumM = 1;
-                        //console.log(alphaNum);
                     }
                     else if(list[this.num] == "egg"){
                         this.listEgg.clearAlpha();

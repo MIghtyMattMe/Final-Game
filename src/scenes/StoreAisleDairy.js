@@ -63,7 +63,7 @@ class StoreAisleDairy extends Phaser.Scene {
         //arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(-120);
+            player.setVelocityX(-150);
             player.flipX = true;
         });
         this.tweens.add({
@@ -163,17 +163,11 @@ class StoreAisleDairy extends Phaser.Scene {
                     ease: 'Power1',
                     duration: 1500
                 });
-                
             } else {
-                //console.log("num: " + this.num);
-                //console.log("list length: " + list.length);
                 for(this.num; this.num <= list.length-1; this.num++){
-                    console.log(list[this.num]);
-                    //console.log("num: " + this.num);
                     if(list[this.num] == "milk"){
                         this.listMilk.clearAlpha();
                         alphaNumM = 1;
-                        //console.log(alphaNum);
                     }
                     else if(list[this.num] == "egg"){
                         this.listEgg.clearAlpha();
@@ -187,7 +181,6 @@ class StoreAisleDairy extends Phaser.Scene {
                         this.listCereal.clearAlpha();
                         alphaNumCe = 1;
                     }
-        
                 }
                 this.tweens.add({
                     targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.listChips],
@@ -211,24 +204,17 @@ class StoreAisleDairy extends Phaser.Scene {
         this.egg.update();
 
         //if held over cart - enter cart scene
-        //this.physics.arcade.overlap(this.box, player, incrementI, null, this);
-        
         if(this.i >= 15){
             this.i=0;
-            console.log(cart[0]);
             new_cart_item = globalThis.gameObject;
             this.scene.start('cartScene');
         }   
 
-        //console.log(player.x);
         //change scenes when player hits sides
         if(player.x <=200){
             curScene = "storeAisleRScene";
             this.scene.start("storeAisleRScene");
-            //console.log("boundary");
         }
-
-        
     }
     
     increment(i){

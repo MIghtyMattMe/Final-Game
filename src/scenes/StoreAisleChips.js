@@ -59,12 +59,12 @@ class StoreAisleChips extends Phaser.Scene {
         //hidden arrow buttons
         this.leftButton = this.add.sprite(-50, 60, "button_left").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(-120);
+            player.setVelocityX(-150);
             player.flipX = true;
         });                     
         this.rightButton = this.add.sprite(game.config.width - 140, 60, "button_right").setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             player.anims.play("walking", true);
-            player.setVelocityX(120);
+            player.setVelocityX(150);
             player.flipX = false;
         });
         this.tweens.add({
@@ -145,12 +145,9 @@ class StoreAisleChips extends Phaser.Scene {
                 });
             } else {
                 for(this.num; this.num <= list.length-1; this.num++){
-                    console.log(list[this.num]);
-                    //console.log("num: " + this.num);
                     if(list[this.num] == "milk"){
                         this.listMilk.clearAlpha();
                         alphaNumM = 1;
-                        //console.log(alphaNum);
                     }
                     else if(list[this.num] == "egg"){
                         this.listEgg.clearAlpha();
@@ -185,9 +182,7 @@ class StoreAisleChips extends Phaser.Scene {
         player.update();
         this.chips.update();
 
-        //if held over cart - enter cart scene
-        //this.physics.arcade.overlap(this.box, player, incrementI, null, this);
-        
+        //if held over cart - enter cart scene        
         if(this.i >= 15){
             this.i=0;
             new_cart_item = globalThis.gameObject;
@@ -198,7 +193,7 @@ class StoreAisleChips extends Phaser.Scene {
         if(player.x <=200){
             curScene = "storeAisleLScene";
             this.scene.start("storeAisleLScene");
-            //console.log("boundary");
+
         }
         else if(player.x >= game.config.width - 200){
             curScene = "storeAisleRScene";

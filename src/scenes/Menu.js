@@ -29,10 +29,10 @@ class Menu extends Phaser.Scene {
             this.scene.start("storeAisleRScene");});
         this.helpButton = this.add.sprite(game.config.width - 270, 160, "button_help").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            this.scene.start("helpScene");});
         this.creditsButton = this.add.sprite(game.config.width - 270, 260, "button_credits").setAlpha(0.8).setOrigin(0,0).setScale(.70).setInteractive().on("pointerdown", ()=> {
             curScene = "storeAisleRScene";
-            this.scene.start("storeAisleRScene");});
+            this.scene.start("creditsScene");});
         this.tweens.add({
             targets:[this.startButton, this.helpButton, this.creditsButton],
             y: '-=10',
@@ -62,24 +62,9 @@ class Menu extends Phaser.Scene {
             menu_music.setLoop(true);
             menu_music.play();
         }
-        //menu_music.play();
 
         this.game_music = this.sound.add('game_music', {volume: 0.5});
         this.game_music.setLoop(true);
-
-        //temporary change between scenes & text
-        let keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-
-        /*
-        keySPACE.on('down', (event) => {
-            menu_music.stop();
-            this.game_music.play();
-            curScene = "storeAisleRScene";
-            this.scene.start('storeAisleRScene');
-        });*/
-
-        //let txt = this.add.text(120, 140, "press Space to start game\nUse the mouse to shop for food!");
-
     }
 
     update() {
