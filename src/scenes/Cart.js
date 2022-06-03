@@ -21,7 +21,7 @@ class Cart extends Phaser.Scene {
         this.crack = this.sound.add('crack', {volume: 1});
         //create the back button & background
         this.bg = this.add.tileSprite(0,0, 980, 720, "cart_bg").setOrigin(0,0);
-        let back_butt = this.add.sprite(60, 20, "back_button").setScale(0.2).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let back_butt = this.add.sprite(8.9, 0, "back_button").setScale(0.16).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start(curScene);
         });
 

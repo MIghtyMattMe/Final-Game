@@ -33,7 +33,7 @@ class StoreAisleR extends Phaser.Scene {
         //background, shelf, and cart button declaration 
         this.bg = this.add.tileSprite(0,0, 980, 720, "aisleRbg").setOrigin(0,0);
 
-        let cart_butt = this.add.sprite(60, 20, "cart_button").setScale(0.2).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let cart_butt = this.add.sprite(8.9, 0, "cart_button").setScale(0.16).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start('cartScene');
         });
 
@@ -61,7 +61,7 @@ class StoreAisleR extends Phaser.Scene {
         this.listEgg = this.add.sprite(30, 750, "list_eggs").setOrigin(0,0).setDepth(2).setAlpha(alphaNumE);
         this.listCereal = this.add.sprite(30, 750, "list_cereal").setOrigin(0,0).setDepth(3).setAlpha(alphaNumCe);
         this.listChips = this.add.sprite(30, 750, "list_chips").setOrigin(0,0).setDepth(4).setAlpha(alphaNumCh);
-        let list_butt = this.add.sprite(160, 20, "list_button").setScale(0.2).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let list_butt = this.add.sprite(107, 0, "list_button").setScale(0.16).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             if (list_obj.y < 740) {
                 this.tweens.add({
                     targets: [list_obj, this.listMilk, this.listEgg, this.listCereal, this.listChips],

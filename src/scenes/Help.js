@@ -19,7 +19,7 @@ class Help extends Phaser.Scene {
         this.add.sprite(110, 50, "back").setOrigin(0).setAlpha(0.8);
         this.add.sprite(110, 50, "hlp").setOrigin(0).setAlpha(0.8);
 
-        let back_butt = this.add.sprite(65, 25, "butt").setScale(0.2).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
+        let back_butt = this.add.sprite(8.9, 0, "butt").setScale(0.16).setOrigin(0, 0).setInteractive().on('pointerdown', () => {
             this.scene.start("menuScene");
         });
 
